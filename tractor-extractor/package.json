@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "@postlight/parser": "^2.2.3",
+    "chrono-node": "^2.7.6",
+    "compromise": "^14.13.0",
+    "compromise-stats": "^0.1.0",
+    "compromise-wikipedia": "^0.1.0",
+    "linkedom": "^0.18.2",
+    "sbd": "^1.0.19",
+    "tldts": "^6.1.24",
+    "unpdf": "^0.10.1",
+    "youtube-transcript": "^1.2.1"
+  },
+  "type": "module",
+  "devDependencies": {
+    "@vitest/ui": "^1.6.0",
+    "fs-extra": "^11.2.0",
+    "vitest": "^1.6.0"
+  },
+  "scripts": {
+    "test": "vitest ",
+    "test-ui": "vitest --ui"
+  }
+}

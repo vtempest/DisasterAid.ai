@@ -1,0 +1,184 @@
+{
+  "url": "https://www.anandtech.com/show/21415/amd-unveils-ryzen-9000-cpus-for-desktop-zen-5-takes-center-stage-at-computex-2024",
+  "title": "AMD Unveils Ryzen 9000 CPUs For Desktop, Zen 5 Takes Center Stage at Computex 2024",
+  "author": "Gavin Bonshor",
+  "source": "AnandTech",
+  "image": "https://images.anandtech.com/doci/21415/Ryzen-9000_4-(1)_678x452.jpg",
+  "word_count": 2106,
+  "keyphrases": [
+    {
+      "keyphrase": "motherboard chipsets",
+      "sentences": "36 53 54 59 60 62 1 19 27 2 29 34 44 5 7 14 35 9 55 61 58 63",
+      "words": 2,
+      "weight": 53,
+      "wikiEntity": "motherboard"
+    },
+    {
+      "keyphrase": "cores a max boost",
+      "sentences": "40 41 42 43 3 14 22 31 39 47 4 45 49 59",
+      "words": 4,
+      "weight": 31
+    },
+    {
+      "keyphrase": "x870 chipsets",
+      "sentences": "9 54 55 59 60 62 1 19 27 2 29 34 44 5 7 14 35 36 53 61 58 63",
+      "words": 2,
+      "weight": 28.5
+    },
+    {
+      "keyphrase": "cpu pcie lanes",
+      "sentences": "14 59 3 16 17 22 31 39 51 58 11 57",
+      "words": 3,
+      "weight": 26.333333333333332
+    },
+    {
+      "keyphrase": "ccd tsmc",
+      "sentences": "14 15 34",
+      "words": 2,
+      "weight": 24,
+      "wikiEntity": "tsmc"
+    }
+  ],
+  "sorted_sentences": [
+    {
+      "index": 59,
+      "keyphrases": [
+        "motherboard chipsets",
+        "cores a max boost",
+        "x870 chipsets",
+        "cpu pcie lanes",
+        "cpu cores",
+        "am5 chipset",
+        "expo memory",
+        "table tbody",
+        "tbody table",
+        "am5 socket",
+        "overclocking support",
+        "x870e and x870",
+        "performance",
+        "sometime in july"
+      ]
+    },
+    {
+      "index": 14,
+      "keyphrases": [
+        "motherboard chipsets",
+        "cores a max boost",
+        "x870 chipsets",
+        "cpu pcie lanes",
+        "ccd tsmc",
+        "cpu cores",
+        "am5 chipset",
+        "expo memory",
+        "table tbody",
+        "tbody table",
+        "microarchitecture",
+        "granite ridge",
+        "am5 socket"
+      ]
+    },
+    {
+      "index": 1,
+      "keyphrases": [
+        "motherboard chipsets",
+        "x870 chipsets",
+        "am5 chipset",
+        "series boards",
+        "microarchitecture",
+        "sometime in july",
+        "instruction set"
+      ]
+    },
+    {
+      "index": 58,
+      "keyphrases": [
+        "motherboard chipsets",
+        "x870 chipsets",
+        "cpu pcie lanes",
+        "cpu cores",
+        "am5 chipset",
+        "motherboards"
+      ]
+    },
+    {
+      "index": 19,
+      "keyphrases": [
+        "motherboard chipsets",
+        "x870 chipsets",
+        "am5 chipset",
+        "microarchitecture",
+        "performance",
+        "instruction set"
+      ]
+    }
+  ],
+  "sentences": [
+    "<p> During AMD&apos;s Computex 2024 kick-off keynote, AMD&apos;s CEO, Dr. Lisa Su, officially unveiled and announced the company&apos;s next generation of Ryzen processors.",
+    "Today marks the first unveiling of AMD&apos;s highly anticipated Zen 5 microarchitecture via the Ryzen 9000 series, which is set to bring several advancements over Zen 4 and the Ryzen 7000 series for desktop PCs, which will launch sometime in July 2024.",
+    "</p>  <p> AMD has unveiled four new chip SKUs using its Zen 5 microarchitecture.",
+    "The AMD Ryzen 9 9950X processor will be the new consumer flagship part, featuring 16 CPU cores and a speedy 5.7 GHz maximum boost frequency.",
+    "The other SKUs include, 6, 8, and 12 core parts, giving users a varied combination of core and thread counts.",
+    "All four of these initial chips will be X-series chips, meaning they will have an unlocked multipliers and higher TDPs/clockspeeds.",
+    "</p>  <p> In regards to performance, AMD is touting an average (geomean) IPC increase in desktop workloads for Zen 5 of 16%.",
+    "And with the new desktop Ryzen chips&apos; turbo clockspeeds remaining largely identical to their Ryzen 7000 predecessors, this should translate into similar performance expectations for the new chips.",
+    "</p>  <p> The AMD Ryzen 9000 series will also launch on the AM5 socket, which debuted with AMD&apos;s Ryzen 7000 series and marks AMD&apos;s commitment to socket/platform longevity.",
+    "Along with the Ryzen 9000 series will come a pair of new high-performance chipsets: the X870E (Extreme) and the regular X870 chipsets.",
+    "The fundamental features that vendors will integrate into their specific motherboards remain tight-lipped.",
+    "Still, we do know that USB 4.0 ports are standard on the X870E/X870 boards, along with PCIe 5.0 for both PCIe graphics and NVMe storage, with higher AMD EXPO memory profile support expected than previous generations.",
+    "</p>  <h2> AMD Ryzen 9000: Bringing Up to 16C/32T of Zen 5 to Desktop </h2>  <p> Zen 5 is AMD&apos;s latest advancement in Ryzen microarchitecture.",
+    "While AMD hasn&apos;t disclosed many technical details, we know some of the brand-new features that Zen 5 will offer.",
+    "</p>  <table>  <tbody>  <tr>  <td> AMD Desktop CPU Generations </td>  </tr>  <tr>  <td>  <i> AnandTech </i>  </td>  <td> Ryzen 9000 <br>  (Granite Ridge) </td>  <td> Ryzen 7000 <br>  (Raphael) </td>  <td> Ryzen 5000 <br>  (Vermeer) </td>  </tr>  <tr>  <td>  <strong> CPU Architecture </strong>  </td>  <td> Zen 5 </td>  <td> Zen 4 </td>  <td> Zen 3 </td>  </tr>  <tr>  <td>  <strong> CPU Cores </strong>  </td>  <td> Up to 16C / 32T </td>  <td> Up To 16C / 32T </td>  <td> Up To 16C / 32T </td>  </tr>  <tr>  <td>  <strong> GPU Architecture </strong>  </td>  <td> RDNA2 </td>  <td> RDNA2 </td>  <td> N/A </td>  </tr>  <tr>  <td>  <strong> GPU Cores </strong>  </td>  <td> 2 </td>  <td> 2 </td>  <td> N/A </td>  </tr>  <tr>  <td>  <strong> Memory </strong>  </td>  <td> DDR5-5600 </td>  <td> DDR5-5200 </td>  <td> DDR4-3200 </td>  </tr>  <tr>  <td>  <strong> Platform </strong>  </td>  <td> AM5 </td>  <td> AM5 </td>  <td> AM4 </td>  </tr>  <tr>  <td>  <strong> CPU PCIe Lanes </strong>  </td>  <td> 24x PCIe 5.0 </td>  <td> 24x PCIe 5.0 </td>  <td> 24x PCIe 4.0 </td>  </tr>  <tr>  <td>  <strong> Manufacturing Process </strong>  </td>  <td> CCD: TSMC N4 <br>  IOD:TSMC N6 </td>  <td> CCD: TSMC N5 <br>  IOD: TSMC N6 </td>  <td> CCD: TSMC N7 <br>  IOD: GloFo 12nm </td>  </tr>  </tbody>  </table>  <p> Looking at architectural differences between the last couple of generations (Zen 4 and Zen 3) and Zen 5, we know that AMD uses a new manufacturing process for its Ryzen 9000 desktop chips.",
+    "While many have touted and speculated that Zen 5 for desktops will be built on one of TSMC&apos;s N3 (3 nm) nodes, some of our sources are saying that the Zen 5 CCD will be fabbed on TSMC N4 &#x2013; though we are awaiting official confirmation about this (Update: And TSMC 4nm is now confirmed for the consumer Ryzen CCD).",
+    "Furthermore, AMD&apos;s mobile counterpart offering, the Ryzen AI 300 series (Strix Point) has been confirmed for 4nm, and we&apos;ve yet to see an AMD desktop CPU die produced on a more advanced node than its mobile counterpart.",
+    "</p>  <p>  <a href=\"https://images.anandtech.com/doci/21415/AMD%20COMPUTEX%20CLIENT%20PRESS%20DECK-01-01%20%2810%29.png\">  <img src=\"https://images.anandtech.com/doci/21415/AMD%20COMPUTEX%20CLIENT%20PRESS%20DECK-01-01%20%2810%29.png\">  </a>  </p>  <p> While AMD is not offering a deep dive into the Zen 5 architecture at Computex, the company did touch upon a few of the major architectural improvements over Zen 4 that will be coming with the new CPU architecture.",
+    "These start with an improved branch predictor, which is designed to offer better accuracy, efficiency, and reduced overall latency of instruction cycles.",
+    "The Zen 5 architecture also boasts higher throughput with wider pipelines and SIMDs, allowing for faster data processing and equating to better overall performance in benchmarks such as CineBench and Blender and workloads leveraging the AVX-512 instruction set.",
+    "</p>  <p> Additionally, Zen 5 introduces a deeper out-of-order instruction window size across its design, enabling more parallelism and better handling of multiple instructions within the pipeline simultaneously.",
+    "</p>  <p>  <a href=\"https://images.anandtech.com/doci/21415/AMD%20COMPUTEX%20CLIENT%20PRESS%20DECK-01-01%20%2811%29.png\">  <img src=\"https://images.anandtech.com/doci/21415/AMD%20COMPUTEX%20CLIENT%20PRESS%20DECK-01-01%20%2811%29.png\">  </a>  </p>  <p> There are also a couple of points within the Zen 5 architecture where AMD has doubled up on resources or performance.",
+    "L2 to L1 memory bandwidth is one such example, giving the cache hierarchy a big bandwidth boost that should allow for faster data transfers within the individual CPU cores.",
+    "AMD also claims better AI performance in inferencing and AVX-512 workloads.",
+    "Notably, AMD&apos;s AVX-512 support on Zen 4 was executed using a 256-bit SIMD over 2 cycles, so this may be a sign that AMD has expanded their AVX-512 SIMDs to a full 512-bits wide in the Zen 5 architecture.",
+    "(Update: This has since been confirmed by AMD.",
+    "Zen 5 now has a full 512-bit wide SIMD for processing AVX-512 instructions) </p>  <p>  <a href=\"https://images.anandtech.com/doci/21415/AMD%20COMPUTEX%20CLIENT%20PRESS%20DECK-01-01%20%2812%29.png\">  <img src=\"https://images.anandtech.com/doci/21415/AMD%20COMPUTEX%20CLIENT%20PRESS%20DECK-01-01%20%2812%29.png\">  </a>  </p>  <p> These enhancements collectively aim to deliver significant performance gains over the previous Zen 4 microarchitecture, with AMD touting an average (geomean) 16% IPC uplift over Zen 4 in desktop workloads.",
+    "It should be noted, however, that the top result in this benchmark collection is in the GeekBench 5.3 AES XTS benchmark, which leverages the VAES512 and VAES256 extensions of the AVX-512 instruction set.",
+    "So AMD&apos;s AVX-512 SIMD changes greatly impact that benchmark in particular (though not exclusively).",
+    "</p>  <p>  <a href=\"https://images.anandtech.com/doci/21415/Ryzen-9000-Delidded_2.jpg\">  <img src=\"https://images.anandtech.com/doci/21415/Ryzen-9000-Delidded_2_575px.jpg\">  </a>  </p>  <p> Above is a render of a Ryzen 9000 series chip with two core complex dies (CCDs), which depicts the silicon&apos;s composition and layout.",
+    "As with previous generations of Ryzen processors, there&apos;s a large central I/O die (IOD), through which all I/O and memory operations are routed.",
+    "As for the CCDs, each die once again contains 8 CPU cores, with AMD equipping Ryzen chips with either 1 or 2 CCDs depending on the SKU.",
+    "The new Zen 5 CCDs are being fabbed on one of TSMC&apos;s 4nm processes (AMD hasn&apos;t confirmed which flavor), which is a modest shrink from the N5 process used for Zen 4 CCDs.",
+    "</p>  <p> Meanwhile, although AMD hasn&apos;t confirmed that they&apos;re reusing the Ryzen 7000 series IOD here, all signs currently point to the Ryzen 9000 IOD being similar or identical to it.",
+    "In particular, it is fabbed on the same TSMC N6 process, with the same 2 RDNA graphics CUs, and it offers the exact same off-chip I/O capabilities (though the latter is admittedly also dictated by the AM5 socket).",
+    "</p>  <p> AMD&apos;s Ryzen 9000 chips will also feature similar memory support as their predecessors, with AMD sticking to DDR5.",
+    "However, AMD does note that the incoming X870E and X870 motherboard chipsets will allow for faster EXPO memory profiles than seen on Zen 4.",
+    "As it stands, AMD hasn&apos;t disclosed the JEDEC memory specification of the four Ryzen 9000 SKUs that it announced today.",
+    "However, we expect to find out more before the July 2024 launch of the Ryzen 9000 family.",
+    "</p>  <table>  <tbody>  <tr>  <td> AMD Ryzen 9000 Series Processors <br>  Zen 5 Microarchitecture (Granite Ridge) </td>  </tr>  <tr>  <td>  <i> AnandTech </i>  </td>  <td> Cores / <br>  Threads </td>  <td> Base <br>  Freq </td>  <td> Turbo <br>  Freq </td>  <td> L2 <br>  Cache </td>  <td> L3 <br>  Cache </td>  <td> TDP </td>  <td> MSRP </td>  </tr>  <tr>  <td>  <b> Ryzen 9 9950X </b>  </td>  <td> 16C / 32T </td>  <td> 4.3GHz </td>  <td> 5.7GHz </td>  <td> 16 MB </td>  <td> 64 MB </td>  <td> 170 W </td>  <td> TBC </td>  </tr>  <tr>  <td>  <b> Ryzen 9 9900X </b>  </td>  <td> 12C / 24T </td>  <td> 4.4GHz </td>  <td> 5.6GHz </td>  <td> 12 MB </td>  <td> 64 MB </td>  <td> 120 W </td>  <td> TBC </td>  </tr>  <tr>  <td>  <b> Ryzen 7 9700X </b>  </td>  <td> 8C / 16T </td>  <td> 3.8GHz </td>  <td> 5.5GHz </td>  <td> 8 MB </td>  <td> 32 MB </td>  <td> 65 W </td>  <td> TBC </td>  </tr>  <tr>  <td>  <b> Ryzen 5 9600X </b>  </td>  <td> 6C / 12T </td>  <td> 3.9GHz </td>  <td> 5.4GHz </td>  <td> 6 MB </td>  <td> 32 MB </td>  <td> 65 W </td>  <td> TBC </td>  </tr>  </tbody>  </table>  <p> The announcement of Zen 5 for desktop by AMD and the impending Ryzen 9000 offers four X-series SKUs at launch, allowing for overclocking and coming with unlocked CPU multipliers.",
+    "The flagship SKU, the Ryzen 9 9950X, features 16 cores, a max boost clock of up to 5.7 GHz, 80 MB of cache split between 64 MB for the L3 and 16 MB for the L2 (1 MB per core of L2) and a 170 W TDP.",
+    "The Ryzen 9 9900X offers 12 cores, a max boost clock of up to 5.6 GHz, 64 MB of L3 cache, and a 120 W TDP.",
+    "</p>  <p> Moving down the Ryzen 9000 stack is the Ryzen 7 9700X, which comes with 8 cores, a max boost clock of up to 5.5 GHz, 32 MB of L3 cache, and a 65W TDP.",
+    "Finally, the entry-level SKU, the Ryzen 5 9600X, has just 6 cores, a max boost clock of up to 5.4 GHz, 32 MB of L3 cache, and a 65 W TDP.",
+    "</p>  <p> The next slide denotes the flagship Zen 5 chip.",
+    "The Ryzen 9 9950X is up against Intel&apos;s current 14th Gen Core i9-14900K.",
+    "In productivity and content creation tasks, the Ryzen 9 9950X shows a 7% improvement in Procyon Office, a 10% increase in Puget Photoshop, and a 21% uplift in Cinebench R24 nT.",
+    "More notably, it exhibits a 55% performance boost in Handbrake and a 56% increase in Blender.",
+    "</p>  <p>  <a href=\"https://images.anandtech.com/doci/21415/AMD%20COMPUTEX%20CLIENT%20PRESS%20DECK-01-01%20%2814%29.png\">  <img src=\"https://images.anandtech.com/doci/21415/AMD%20COMPUTEX%20CLIENT%20PRESS%20DECK-01-01%20%2814%29.png\">  </a>  </p>  <p> Interestingly, the gaming data shows marginal gains in some titles, although it highlights more significant uplifts in others.",
+    "AMD&apos;s in-house testing shows that the Ryzen 9 9950X outperforms the Intel Core i9-14900K by 4% in Borderlands 3, 6% in Hitman 3, and 13% in Cyberpunk 2077.",
+    "Further, it achieves a 16% improvement in F1 2023, a 17% gain in DOTA 2, and a 23% increase in Horizon Zero Dawn.",
+    "</p>  <p>  <a href=\"https://images.anandtech.com/doci/21415/AMD-COMPUTEX-CLIENT-PRESS-DECK-01-01-%2817%29.jpg\">  <img src=\"https://images.anandtech.com/doci/21415/AMD-COMPUTEX-CLIENT-PRESS-DECK-01-01-%2817%29.jpg\">  </a>  </p>  <p> As we&apos;ve mentioned, AMD is committed to extending its AM5 socket for longevity, at least much more than other vendors offer with their CPU launches and updates.",
+    "As such, AMD&apos;s Ryzen 9000 series operates on the current AM5 platform.",
+    "And while Ryzen 9000 is fully backwards compatible with existing 600 series boards, AMD has also readied two new 800 series motherboard chipsets for the launch of Zen 5 on desktops.",
+    "The X870E (extreme) and X870 chipsets will be featured on numerous new motherboards at launch, and a big part of Computex this week will be the motherboard vendors (most of whom are local Taiwanese firms) showing off their new wares.",
+    "</p>  <p> AMD has offered just a handful of details about their X870E and X870 chipsets.",
+    "Of particular note, USB 4.0 support is going to be standard on all X870(E) motherboards, whereas it was optional on X670(E) series boards.",
+    "X870(E) boards will also feature Wi-Fi 7 support (up from 6E on the 600 series), and at least one PCIe 5.0 NVMe slot continues to be mandatory.",
+    "AMD also notes that motherboards based on both platforms &quot;feature 44 total PCIe lanes,&quot; which would break down as 24 lanes from the CPU, and another 20 lanes coming from the chipset.",
+    "</p>  <table>  <tbody>  <tr>  <td> AMD AM5 Chipset Comparison </td>  </tr>  <tr>  <td> Feature </td>  <td> X870E </td>  <td> X870 </td>  <td> X670E </td>  <td> X670 </td>  <td> B650E </td>  </tr>  <tr>  <td> CPU PCIe (PCIe) </td>  <td> 5.0 </td>  <td> 5.0 </td>  <td> 5.0 </td>  <td> 4.0 </td>  <td> 5.0 </td>  </tr>  <tr>  <td> CPU PCIe (M.2 Slots) </td>  <td> At Least 1 PCIe 5.0 Slot </td>  </tr>  <tr>  <td> Total CPU PCIe Lanes </td>  <td> 24 </td>  </tr>  <tr>  <td> Chipset PCIe Lanes (Max) </td>  <td> 4.0: 12 <br>  3.0: 8 </td>  <td> 4.0: 8 <br>  3.0: 4 </td>  <td> 4.0: 12 <br>  3.0: 8 </td>  <td> 4.0: 8 <br>  3.0: 4 </td>  </tr>  <tr>  <td> USB4 </td>  <td> Mandatory <br>  (Discrete, Consumes 4 Chipset PCie 4.0 Lanes) </td>  <td> Optional </td>  </tr>  <tr>  <td> SATA Ports (Max) </td>  <td> 8 </td>  <td> 4 </td>  <td> 8 </td>  <td> 8 </td>  <td> 4 </td>  </tr>  <tr>  <td> DDR5 Support </td>  <td> Quad Channel (128-bit bus) </td>  </tr>  <tr>  <td> Wi-Fi </td>  <td> Wi-Fi 7 (Discrete) </td>  <td> Wi-Fi 6E (Discrete) </td>  </tr>  <tr>  <td> CPU Overclocking Support </td>  <td> Yes </td>  </tr>  <tr>  <td> Memory Overclocking Support </td>  <td> Yes </td>  </tr>  <tr>  <td> # of Chips </td>  <td> 2 </td>  <td> 1 </td>  <td> 2 </td>  <td> 2 </td>  <td> 1 </td>  </tr>  <tr>  <td> Silicon </td>  <td> ASMedia Promontory 21 </td>  </tr>  <tr>  <td> Available </td>  <td> July 2024 </td>  <td> July 2024 </td>  <td> Sept. 2022 </td>  <td> Sept. 2022 </td>  <td> Oct. 2022 </td>  </tr>  </tbody>  </table>  <p> For the moment, different AMD resources are in conflict with each other about PCIe 5.0 &#x2013; or, at least, aren&apos;t being very clear about it.",
+    "According to  <a href=\"https://www.amd.com/en/products/processors/chipsets/am5.html#specs\"> AMD&apos;s AM5 chipset page </a>  </p>  <p> Looking under the hood, AMD has confirmed that the new chipsets aren&apos;t based on new silicon.",
+    "Instead, the company is using the same ASMedia-produced design as in the X670/B650 chipsets: the Promontory 21 controller.",
+    "Given that the feature sets of the newer X870E/X870 motherboards are fundamentally similar to those of the X670E/X670 motherboards, aside from using newer external controllers such as Wi-Fi 7, there&apos;s apparently little need to change the chipset itself.",
+    "Though given the lack of significant changes, it does raise the question of why AMD has skipped a generation in its nomenclature (700-series anyone?) and went straight to the 800-series chipset.",
+    "</p>  <p>  <a href=\"https://images.anandtech.com/doci/21415/AMD%20COMPUTEX%20CLIENT%20PRESS%20DECK-01-01%20%2818%29.png\">  <img src=\"https://images.anandtech.com/doci/21415/AMD%20COMPUTEX%20CLIENT%20PRESS%20DECK-01-01%20%2818%29.png\">  </a>  </p>  <p> The AMD Ryzen 9000 series, including the flagship Ryzen 9 9950X (16C/32T), the Ryzen 9 9900X (12C/24T), the Ryzen 7 9700X (8C/16T), and the entry-level Ryzen 5 9600X (6C/12T) is expected to hit retail channels sometime in July 2024.",
+    "At the time of writing, AMD is not providing pricing.",
+    "</p>  <p> Gallery:  <a href=\"https://www.anandtech.com/Gallery/Album/9475\"> AMD Ryzen 9000 Series (Zen 5) Slide Deck </a>  </p>"
+  ]
+}

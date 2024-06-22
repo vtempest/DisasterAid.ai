@@ -1,0 +1,63 @@
+{
+  "title": "To Stay in Love, Sign on the Dotted Line (Published 2017)",
+  "author": "Mandy Len Catron",
+  "date": "2017-06-23",
+  "source": "@nytimes",
+  "html": "<p>A few months ago my boyfriend and I poured ourselves two beers and opened our laptops. It was time to review the terms of our relationship contract.</p><p>Did we want to make changes? As Mark and I went through each category, we agreed to two minor swaps: my Tuesday dog walk for his Saturday one, and having me clean the kitchen counters and him take over the bathtub.</p><p>The latest version of &#x201C;Mark and Mandy&#x2019;s Relationship Contract,&#x201D; a four-page, single-spaced document that we sign and date, will last for exactly 12 months, after which we have the option to revise and renew it, as we&#x2019;ve done twice before. The contract spells out everything from sex to chores to finances to our expectations for the future. And I love it.</p><p>Writing a relationship contract may sound calculating or unromantic, but every relationship is contractual; we&#x2019;re just making the terms more explicit. It reminds us that love isn&#x2019;t something that happens to us &#x2014; it&#x2019;s something we&#x2019;re making together. After all, this approach brought us together in the first place.</p><p>Two and a half years ago, I wrote a <a href=\"https://www.nytimes.com/2015/01/11/fashion/modern-love-to-fall-in-love-with-anyone-do-this.html\">Modern Love column</a><a href=\"https://www.nytimes.com/2015/01/11/fashion/no-37-big-wedding-or-small.html\">36 questions</a></p><p>In the past, expecting a relationship to work simply because the people involved loved each other had failed me. I spent my 20s with a man who knew exactly what he wanted and how he wanted to be. All I had wanted was for him to love me.</p><p>Thank you for your patience while we verify access. If you are in Reader mode please exit and&#xA0;<a href=\"https://myaccount.nytimes.com/auth/login?response_type\">log into</a><a href=\"https://www.nytimes.com/subscription?campaignId\">subscribe</a></p><p>Thank you for your patience while we verify access.</p><p>Already a subscriber?&#xA0;<a href=\"https://myaccount.nytimes.com/auth/login?response_type\">Log in</a></p><p>Want all of The Times?&#xA0;<a href=\"https://www.nytimes.com/subscription?campaignId\">Subscribe</a></p>",
+  "image": "https://static01.nyt.com/images/2017/06/25/fashion/25LOVE/25LOVE-facebookJumbo.jpg?year=2017&h=549&w=1050&s=2236e840321f87c07d9947aa3c199d2f9fb3c85e3666567c9a952f19e0325f51&k=ZQJBKqZ0VN",
+  "word_count": 343,
+  "keyphrases": [
+    {
+      "keyphrase": "you for your patience",
+      "sentences": [
+        13,
+        14
+      ],
+      "words": 4,
+      "weight": 19
+    }
+  ],
+  "sorted_sentences": [
+    {
+      "text": "Thank you for your patience while we verify access.",
+      "index": 13,
+      "keyphrases": [
+        {
+          "keyphrase": "you for your patience",
+          "weight": 19
+        }
+      ],
+      "weight": 5000
+    },
+    {
+      "text": "If you are in Reader mode please exit and&#xA0; log into  subscribe   Thank you for your patience while we verify access.",
+      "index": 14,
+      "keyphrases": [
+        {
+          "keyphrase": "you for your patience",
+          "weight": 19
+        }
+      ],
+      "weight": 5000
+    },
+    {
+      "text": "A few months ago my boyfriend and I poured ourselves two beers and opened our laptops.",
+      "index": 0,
+      "keyphrases": [],
+      "weight": 0
+    },
+    {
+      "text": "It was time to review the terms of our relationship contract.",
+      "index": 1,
+      "keyphrases": [],
+      "weight": 0
+    },
+    {
+      "text": "Did we want to make changes?",
+      "index": 2,
+      "keyphrases": [],
+      "weight": 0
+    }
+  ],
+  "url": "https://www.nytimes.com/2017/06/23/style/modern-love-to-stay-in-love-sign-on-the-dotted-line-36-questions.html"
+}
