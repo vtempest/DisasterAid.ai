@@ -1,11 +1,10 @@
-import extractContent from "../html-to-content/html-to-content";
+import extractContent from "../html-to-content/html-to-content.js";
 import {
   testYoutubeURL,
   fetchYoutubeText,
-} from "../youtube-to-content/youtube-to-text";
-import fetchText from "../url-to-html/fetch";
-import extractPDF from "../pdf-to-content/pdf-to-html";
-import { weightKeySentences } from "../content-to-keyphrases/key-sentences";
+} from "../youtube-to-content/youtube-to-text.js";
+import extractPDF from "../pdf-to-content/pdf-to-html.js";
+import { weightKeySentences } from "../content-to-keyphrases/key-sentences.js";
 import { fileTypeFromStream } from "file-type";
 import fetch from "node-fetch";
 

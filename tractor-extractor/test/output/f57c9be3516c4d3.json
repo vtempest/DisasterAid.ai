@@ -42,14 +42,16 @@
   ],
   "sorted_sentences": [
     {
-      "index": 155,
+      "index": 40,
       "keyphrases": [
         "fraction of posthuman civilizations",
         "ancestor simulations",
         "computer simulation",
         "simulation",
-        "fraction of all people",
-        "system"
+        "doomsday argument",
+        "civilization",
+        "stage of technological development",
+        "constraints"
       ]
     },
     {
@@ -65,19 +67,6 @@
         "experiences",
         "stage of technological development",
         "propositions"
-      ]
-    },
-    {
-      "index": 84,
-      "keyphrases": [
-        "fraction of posthuman civilizations",
-        "ancestor simulations",
-        "computer simulation",
-        "simulation",
-        "running ancestor",
-        "doomsday argument",
-        "civilization",
-        "stage of technological development"
       ]
     },
     {
@@ -106,6 +95,17 @@
         "experiences",
         "one credence",
         "credence to doom"
+      ]
+    },
+    {
+      "index": 74,
+      "keyphrases": [
+        "fraction of posthuman civilizations",
+        "ancestor simulations",
+        "computer simulation",
+        "simulation",
+        "operations",
+        "estimate"
       ]
     }
   ],

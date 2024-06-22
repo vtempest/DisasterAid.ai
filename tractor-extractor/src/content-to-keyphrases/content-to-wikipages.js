@@ -1,6 +1,6 @@
 import sbd from "sbd";
 import nlp from "compromise";
-import nlpWikipedia from "node_modules/compromise-wikipedia/builds/compromise-wikipedia";
+import nlpWikipedia from "../../node_modules/compromise-wikipedia/builds/compromise-wikipedia.mjs";
 // default import throws an error here
 // https://github.com/spencermountain/compromise/blob/18db3dadcef0d87beabf71317d0904806355ec52/plugins/wikipedia/src/plugin.js#L1
 

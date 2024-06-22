@@ -1,4 +1,4 @@
-import convertHTMLToTokens from "./html-to-tokens";
+import convertHTMLToTokens from "./html-to-tokens.js";
 
 /**
  * Strip HTML to basic markup HTML tags, lists, tables, images.

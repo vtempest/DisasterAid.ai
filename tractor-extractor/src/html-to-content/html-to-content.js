@@ -1,7 +1,7 @@
 import Parser from "@postlight/parser";
 import { parseDate } from "chrono-node";
-import extractCite from "../html-to-cite";
-import convertHTMLToBasicHTML from "./html-to-basic-html";
+import extractCite from "../html-to-cite/index.js";
+import convertHTMLToBasicHTML from "./html-to-basic-html.js";
 
 /**
  *  HTML to Main Content - extract main article text

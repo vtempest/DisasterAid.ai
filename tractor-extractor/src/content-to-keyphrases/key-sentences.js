@@ -1,9 +1,9 @@
 import LanguageTokenizer from "compromise";
 
-import { TextRank } from "./graph-centrality-rank";
-import { addNGrams } from "./ngrams";
+import { TextRank } from "./graph-centrality-rank.js";
+import { addNGrams } from "./ngrams.js";
 
-import nlpWikipedia from "node_modules/compromise-wikipedia/builds/compromise-wikipedia";
+import nlpWikipedia from "../../node_modules/compromise-wikipedia/builds/compromise-wikipedia.mjs";
 LanguageTokenizer.extend(nlpWikipedia);
 
 
