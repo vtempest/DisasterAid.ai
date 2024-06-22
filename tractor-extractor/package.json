@@ -5,6 +5,7 @@
     "compromise": "^14.13.0",
     "compromise-stats": "^0.1.0",
     "compromise-wikipedia": "^0.1.0",
+    "file-type": "^19.0.0",
     "linkedom": "^0.18.2",
     "sbd": "^1.0.19",
     "tldts": "^6.1.24",

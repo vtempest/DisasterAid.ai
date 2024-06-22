@@ -60,6 +60,18 @@
       ]
     },
     {
+      "index": 1,
+      "keyphrases": [
+        "motherboard chipsets",
+        "x870 chipsets",
+        "am5 chipset",
+        "series boards",
+        "microarchitecture",
+        "sometime in july",
+        "instruction set"
+      ]
+    },
+    {
       "index": 14,
       "keyphrases": [
         "motherboard chipsets",
@@ -78,18 +90,6 @@
       ]
     },
     {
-      "index": 1,
-      "keyphrases": [
-        "motherboard chipsets",
-        "x870 chipsets",
-        "am5 chipset",
-        "series boards",
-        "microarchitecture",
-        "sometime in july",
-        "instruction set"
-      ]
-    },
-    {
       "index": 58,
       "keyphrases": [
         "motherboard chipsets",
@@ -101,14 +101,13 @@
       ]
     },
     {
-      "index": 19,
+      "index": 35,
       "keyphrases": [
         "motherboard chipsets",
         "x870 chipsets",
         "am5 chipset",
-        "microarchitecture",
-        "performance",
-        "instruction set"
+        "expo memory",
+        "overclocking support"
       ]
     }
   ],

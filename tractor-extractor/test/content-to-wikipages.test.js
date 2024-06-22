@@ -6,9 +6,10 @@ import {
 
 import testArticle from "./output/tcomputex2024.json"
 
-var html = testArticle.sentences.map(s=>s.text).join(" ");
 describe("wiki", () => { 
   it("WikiEntityRecognition", async () => {
+  
+    var html = testArticle.sentences.map(s=>s.text).join(" ");
      
     var output = await WikiEntityRecognition(html,{
       matchPositions: true,
