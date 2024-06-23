@@ -14,37 +14,23 @@ const client = new BedrockRuntimeClient({
 });
 
 async function invokeModel() {
-  const params = {
-    modelId: "meta.llama2-13b-chat-v1",
-    body: JSON.stringify({
-      prompt: "I need an idea for an app to build on Amazon Bedrock.",
-      max_gen_len: 512,
-      temperature: 0.5,
-      top_p: 0.9,
-      "messages": [
-        {
-            "role": "user",
-            "content": [
-                {
-                    "type": "image",
-                    "source": {
-                        "type": "base64",
-                        "media_type": "image/jpeg",
-                        "data": "iVBORw..."
-                    }
-                },
-                {
-                    "type": "text",
-                    "text": "What's in these images?"
-                }
-            ]
-        }
-    ]
-    }),
-    contentType: "application/json",
-    accept: "*/*",
-    
-  };
+    const messages = [
+        { role: "user", content: "Hello, world. what is amazon?" }
+    ];
+
+    // Prepare the request parameters
+    const params = {
+        modelId: "anthropic.claude-3-sonnet-20240229-v1:0",
+        body: JSON.stringify({
+            prompt: messages,
+            max_gen_len: 512,
+            temperature: 0.5,
+            top_p: 0.9
+        }),
+        contentType: "application/json",
+        accept: "*/*"
+    };
+
 
   const command = new ConverseCommand(params);
 
