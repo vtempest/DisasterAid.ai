@@ -316,7 +316,7 @@ export async function POST({ request, locals, params, getClientAddress }) {
 	const stream = new ReadableStream({
 		async start(controller) {
 			messageToWriteTo.updates ??= [];
-			async function update(event: MessageUpdate) {
+			async function update(event: any) {
 				if (!messageToWriteTo || !conv) {
 					throw Error("No message or conversation to write events to");
 				}
@@ -356,7 +356,7 @@ export async function POST({ request, locals, params, getClientAddress }) {
 				}
 
 				// Set the final text and the interrupted flag
-				else if (event.type === MessageUpdateType.FinalAnswer) {
+				else if (event.type === "final") {
 					messageToWriteTo.interrupted = event.interrupted;
 					messageToWriteTo.content = initialMessageContent + event.text;
 
@@ -419,7 +419,11 @@ export async function POST({ request, locals, params, getClientAddress }) {
 					username: locals.user?.username,
 				};
 				// run the text generation and send updates to the client
-				for await (const event of textGeneration(ctx)) await update(event);
+				const response = await textGeneration(ctx)
+
+				await update({ text: response, type: "final" });
+
+
 			} catch (e) {
 				hasError = true;
 				await update({

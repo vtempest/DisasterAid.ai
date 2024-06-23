@@ -20,7 +20,7 @@ import {
 	makeSourcesUpdate,
 } from "./update";
 import { mergeAsyncGenerators } from "$lib/utils/mergeAsyncGenerators";
-import { MetricsServer } from "../metrics";
+// import { MetricsServer } from "../metrics";
 
 const MAX_N_PAGES_TO_SCRAPE = 3 as const;
 const MAX_N_PAGES_TO_EMBED = 2 as const;
@@ -35,7 +35,7 @@ export async function* runWebSearch(
 	const createdAt = new Date();
 	const updatedAt = new Date();
 
-	MetricsServer.getMetrics().webSearch.requestCount.inc();
+	// MetricsServer.getMetrics().webSearch.requestCount.inc();
 
 	try {
 		const embeddingModel =
@@ -71,6 +71,8 @@ export async function* runWebSearch(
 				absoluteURLs: true,
 			});
 
+			console.log(extraction)
+
 			if (extraction && extraction.sentences?.length) {
 
 				// console.log(extraction["sorted_sentences"]);
@@ -92,32 +94,34 @@ export async function* runWebSearch(
 			allScrapedPages.push(extraction);
 		}
 
+		console.log(allScrapedPages)
 
-		const scrapedPages = allScrapedPages.slice(0, MAX_N_PAGES_TO_EMBED);
 
 
-		if (!scrapedPages.length) {
-			throw Error(`No text found in the first ${MAX_N_PAGES_TO_SCRAPE} results`);
-		}
+		const contextSources = JSON.stringify(allScrapedPages);
 
-		// Chunk the text of each of the elements and find the most similar chunks to the prompt
-		yield makeGeneralUpdate({ message: "Extracting relevant information" });
-		const contextSources = await findContextSources(scrapedPages, prompt, embeddingModel).then(
-			(ctxSources) =>
-				ctxSources.map((source) => ({
-					...source,
-					page: { ...source.page, markdownTree: removeParents(source.page.markdownTree) },
-				}))
-		);
-		yield makeSourcesUpdate(contextSources);
+
+		console.log(contextSources)
+
+		// if (!scrapedPages.length) {
+		// 	throw Error(`No text found in the first ${MAX_N_PAGES_TO_SCRAPE} results`);
+		// }
+
+		// // // Chunk the text of each of the elements and find the most similar chunks to the prompt
+		// // yield makeGeneralUpdate({ message: "Extracting relevant information" });
+		// // const contextSources = await findContextSources(scrapedPages, prompt, embeddingModel).then(
+		// // 	(ctxSources) =>
+		// // 		ctxSources.map((source) => ({
+		// // 			...source,
+		// // 			page: { ...source.page, markdownTree: removeParents(source.page.markdownTree) },
+		// // 		}))
+		// // );
+		// // yield makeSourcesUpdate(contextSources);
 
 		const webSearch: WebSearch = {
 			prompt,
 			searchQuery,
-			results: scrapedPages.map(({ page, ...source }) => ({
-				...source,
-				page: { ...page, markdownTree: removeParents(page.markdownTree) },
-			})),
+			results: allScrapedPages,
 			contextSources,
 			createdAt,
 			updatedAt,

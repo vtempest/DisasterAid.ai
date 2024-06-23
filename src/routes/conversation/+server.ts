@@ -10,7 +10,7 @@ import { defaultEmbeddingModel } from "$lib/server/embeddingModels";
 import { v4 } from "uuid";
 import { authCondition } from "$lib/server/auth";
 import { usageLimits } from "$lib/server/usageLimits";
-import { MetricsServer } from "$lib/server/metrics";
+// import { MetricsServer } from "$lib/server/metrics";
 
 export const POST: RequestHandler = async ({ locals, request }) => {
 	const body = await request.text();
@@ -116,7 +116,7 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 		...(values.fromShare ? { meta: { fromShareId: values.fromShare } } : {}),
 	});
 
-	MetricsServer.getMetrics().model.conversationsTotal.inc({ model: values.model });
+	// MetricsServer.getMetrics().model.conversationsTotal.inc({ model: values.model });
 
 	return new Response(
 		JSON.stringify({

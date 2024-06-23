@@ -62,6 +62,7 @@
     "@xenova/transformers": "^2.16.1",
     "autoprefixer": "^10.4.14",
     "aws4": "^1.13.0",
+    "axios": "^1.7.2",
     "browser-image-resizer": "^2.4.1",
     "chrono-node": "^2.7.6",
     "compromise": "^14.13.0",

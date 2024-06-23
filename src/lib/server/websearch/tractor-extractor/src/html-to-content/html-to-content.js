@@ -16,44 +16,42 @@ import convertHTMLToBasicHTML from "./html-to-basic-html.js";
  * @returns {object} {title, author, date, source, html, image, word_count}
  */
 export default async function extractContent(html, options) {
-  options = options || {
-    images: true,
-    links: true,
-    formatting: true,
-    absoluteURLs: true,
-    url: "",
-  };
+	options = options || {
+		images: true,
+		links: true,
+		formatting: true,
+		absoluteURLs: true,
+		url: "",
+	};
 
-  if (!html || html.indexOf("<")==-1) return { error: "No HTML content" };
+	if (!html) return { error: "No HTML content" };
 
-  var postlightParsedArticle = await new Promise(function (resolve, reject) {
-    Parser.parse(options.url, {
-      html,
-    })
-      .then(resolve)
-      .catch((e) => {
-        console.log(e);
-        reject();
-      });
-  }).catch((e) => {
-    return {error: "Error parsing article"};
-  })
+	try {
+		var postlightParsedArticle = await new Promise(function (resolve, reject) {
+			Parser.parse(options.url, {
+				html,
+			})
+				.then(resolve)
+				.catch((e) => {
+					console.log(e);
+					reject();
+				});
+		});
 
-  var { date_published, lead_image_url, word_count, content } =
-    postlightParsedArticle;
+		var { date_published, lead_image_url, word_count, content } = postlightParsedArticle;
 
-  date_published = date_published
-    ? parseDate(date_published)?.toISOString().split("T")[0]
-    : null;
+		date_published = date_published ? parseDate(date_published)?.toISOString().split("T")[0] : null;
+	} catch (e) {
+		return { error: "No parse" };
+	}
+	var { author, date, title, source } = extractCite(html, { url: options.url });
 
-  var { author, date, title, source } = extractCite(html, { url: options.url });
+	author = postlightParsedArticle.author || author;
+	title = postlightParsedArticle.title || title;
+	date = date_published || date;
 
-  author = postlightParsedArticle.author || author;
-  title = postlightParsedArticle.title || title;
-  date = date_published || date;
+	var html = convertHTMLToBasicHTML(content, options);
+	var image = lead_image_url;
 
-  var html = convertHTMLToBasicHTML(content, options);
-  var image = lead_image_url;
-
-  return { title, author, date, source, html, image, word_count };
+	return { title, author, date, source, html, image, word_count };
 }

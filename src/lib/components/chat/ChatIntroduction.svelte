@@ -39,8 +39,8 @@
 				</div>
 			</div>
 			<p class="text-base text-gray-600 dark:text-gray-400">
-				
-				DisasterAid.ai is an AI-powered platform that consolidates trustworthy live updates about ongoing crises and packages them into summarized info-bites.
+				DisasterAid.ai consolidates trustworthy live news updates from You.com about ongoing crises
+				and packages them into summarized info-bites.
 			</p>
 		</div>
 	</div>

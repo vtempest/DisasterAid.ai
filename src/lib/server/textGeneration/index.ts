@@ -22,52 +22,59 @@ import type { ToolResult } from "$lib/types/Tool";
 import { toolHasName } from "../tools/utils";
 import directlyAnswer from "../tools/directlyAnswer";
 
-export async function* textGeneration(ctx: TextGenerationContext) {
-	yield* mergeAsyncGenerators([
-		textGenerationWithoutTitle(ctx),
-		generateTitleForConversation(ctx.conv),
-	]);
-}
+import process from "../websearch/tractor-extractor/you-search.js"
+import invokeModel from "../websearch/tractor-extractor/aws.js"
 
-async function* textGenerationWithoutTitle(
-	ctx: TextGenerationContext
-): AsyncGenerator<MessageUpdate, undefined, undefined> {
-	yield {
-		type: MessageUpdateType.Status,
-		status: MessageUpdateStatus.Started,
-	};
+import { SummaryAgentPrompt, evacuationCenters } from "./prompts.js";
 
-	ctx.assistant ??= await getAssistantById(ctx.conv.assistantId);
-	const { model, conv, messages, assistant, isContinue, webSearch, toolsPreference } = ctx;
-	const convId = conv._id;
 
-	let webSearchResult: WebSearch | undefined;
+export async function textGeneration(ctx: TextGenerationContext) {
 
-	// run websearch if:
-	// - it's not continuing a previous message
-	// - AND the model doesn't support tools and websearch is selected
-	// - OR the assistant has websearch enabled (no tools for assistants for now)
-	if (
-		!isContinue &&
-		((!model.tools && webSearch && !conv.assistantId) || assistantHasWebSearch(assistant))
-	) {
-		webSearchResult = yield* runWebSearch(conv, messages, assistant?.rag);
-	}
+	const { conv, toolsPreference, messages, convId } = ctx;
 
-	let preprompt = conv.preprompt;
-	if (assistantHasDynamicPrompt(assistant) && preprompt) {
-		preprompt = await processPreprompt(preprompt);
-		if (messages[0].from === "system") messages[0].content = preprompt;
-	}
 
-	let toolResults: ToolResult[] = [];
+	const q = conv.messages.filter((m) => m.from === "user").map((m) => m.content).join("\n");
 
-	if (model.tools && !conv.assistantId) {
-		const tools = pickTools(toolsPreference, Boolean(assistant));
-		const toolCallsRequired = tools.some((tool) => !toolHasName(directlyAnswer.name, tool));
-		if (toolCallsRequired) toolResults = yield* runTools(ctx, tools, preprompt);
-	}
 
-	const processedMessages = await preprocessMessages(messages, webSearchResult, convId);
-	yield* generate({ ...ctx, messages: processedMessages }, toolResults, preprompt);
+	console.log(q)
+	const webSearchResult = await process(q)
+
+
+	const extractionString = JSON.stringify(webSearchResult)
+
+	console.log(extractionString)
+
+
+
+	const queryString =
+		SummaryAgentPrompt +
+		"Evacuation Centers: " +
+		JSON.stringify(evacuationCenters, null, 2) +
+		"NEWS: " +
+		extractionString;
+
+	let response = await invokeModel(queryString);
+
+	response = response?.output.message?.content[0]?.text;
+	console.log(response);
+
+	return response
+
+
+	// let preprompt = conv.preprompt;
+	// if (assistantHasDynamicPrompt(assistant) && preprompt) {
+	// 	preprompt = await processPreprompt(preprompt);
+	// 	if (messages[0].from === "system") messages[0].content = preprompt;
+	// }
+
+	// let toolResults: ToolResult[] = [];
+
+	// if (model.tools && !conv.assistantId) {
+	// 	const tools = pickTools(toolsPreference, Boolean(assistant));
+	// 	const toolCallsRequired = tools.some((tool) => !toolHasName(directlyAnswer.name, tool));
+	// 	if (toolCallsRequired) toolResults = yield* runTools(ctx, tools, preprompt);
+	// }
+
+	// const processedMessages = await preprocessMessages(messages, webSearchResult, convId);
+	// yield* generate({ ...ctx, messages: processedMessages }, toolResults, preprompt);
 }

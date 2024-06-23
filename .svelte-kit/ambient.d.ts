@@ -44,6 +44,8 @@ declare module '$env/static/private' {
 	export const SERPSTACK_API_KEY: string;
 	export const USE_LOCAL_WEBSEARCH: string;
 	export const SEARXNG_QUERY_URL: string;
+	export const AWS_BEDROCK_ACCESS_KEY_ID: string;
+	export const AWS_BEDROCK_SECRET_ACCESS_KEY: string;
 	export const WEBSEARCH_ALLOWLIST: string;
 	export const WEBSEARCH_BLOCKLIST: string;
 	export const WEBSEARCH_JAVASCRIPT: string;
@@ -160,6 +162,7 @@ declare module '$env/static/private' {
 	export const USERDOMAIN_ROAMINGPROFILE: string;
 	export const USERNAME: string;
 	export const USERPROFILE: string;
+	export const VIPSHOME: string;
 	export const VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
 	export const VSCODE_GIT_ASKPASS_MAIN: string;
 	export const VSCODE_GIT_ASKPASS_NODE: string;
@@ -226,6 +229,8 @@ declare module '$env/dynamic/private' {
 		SERPSTACK_API_KEY: string;
 		USE_LOCAL_WEBSEARCH: string;
 		SEARXNG_QUERY_URL: string;
+		AWS_BEDROCK_ACCESS_KEY_ID: string;
+		AWS_BEDROCK_SECRET_ACCESS_KEY: string;
 		WEBSEARCH_ALLOWLIST: string;
 		WEBSEARCH_BLOCKLIST: string;
 		WEBSEARCH_JAVASCRIPT: string;
@@ -342,6 +347,7 @@ declare module '$env/dynamic/private' {
 		USERDOMAIN_ROAMINGPROFILE: string;
 		USERNAME: string;
 		USERPROFILE: string;
+		VIPSHOME: string;
 		VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
 		VSCODE_GIT_ASKPASS_MAIN: string;
 		VSCODE_GIT_ASKPASS_NODE: string;

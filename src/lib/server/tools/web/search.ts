@@ -18,8 +18,7 @@ const websearch: BackendTool = {
 	async *call({ query }, { conv, assistant, messages }) {
 		const webSearchToolResults = yield* runWebSearch(conv, messages, assistant?.rag, String(query));
 		const chunks = webSearchToolResults?.contextSources
-			.map(({ context }) => context)
-			.join("\n------------\n");
+
 
 		return {
 			outputs: [{ websearch: chunks }],

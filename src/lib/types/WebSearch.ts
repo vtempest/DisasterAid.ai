@@ -10,8 +10,8 @@ export interface WebSearch extends Timestamps {
 	prompt: string;
 
 	searchQuery: string;
-	results: WebSearchSource[];
-	contextSources: WebSearchUsedSource[];
+	results: any[];
+	contextSources: any;
 }
 
 export interface WebSearchSource {
