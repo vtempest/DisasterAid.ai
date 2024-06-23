@@ -1,0 +1,138 @@
+{
+	"/": [
+		"src/routes/+layout.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/admin/export": [
+		"src/routes/admin/export/+server.ts"
+	],
+	"/admin/stats/compute": [
+		"src/routes/admin/stats/compute/+server.ts"
+	],
+	"/api/assistants": [
+		"src/routes/api/assistants/+server.ts"
+	],
+	"/api/assistant/[id]": [
+		"src/routes/api/assistant/[id]/+server.ts"
+	],
+	"/api/conversations": [
+		"src/routes/api/conversations/+server.ts"
+	],
+	"/api/conversation/[id]": [
+		"src/routes/api/conversation/[id]/+server.ts"
+	],
+	"/api/models": [
+		"src/routes/api/models/+server.ts"
+	],
+	"/api/user": [
+		"src/routes/api/user/+server.ts"
+	],
+	"/api/user/assistants": [
+		"src/routes/api/user/assistants/+server.ts"
+	],
+	"/assistants": [
+		"src/routes/assistants/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/assistant/[assistantId]": [
+		"src/routes/assistant/[assistantId]/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/assistant/[assistantId]/thumbnail.png": [
+		"src/routes/assistant/[assistantId]/thumbnail.png/+server.ts"
+	],
+	"/conversations": [
+		"src/routes/conversations/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/conversation": [
+		"src/routes/conversation/+server.ts"
+	],
+	"/conversation/[id]": [
+		"src/routes/conversation/[id]/+page.server.ts",
+		"src/routes/+layout.server.ts",
+		"src/routes/conversation/[id]/+server.ts"
+	],
+	"/conversation/[id]/message/[messageId]/prompt": [
+		"src/routes/conversation/[id]/message/[messageId]/prompt/+server.ts"
+	],
+	"/conversation/[id]/message/[messageId]/vote": [
+		"src/routes/conversation/[id]/message/[messageId]/vote/+server.ts"
+	],
+	"/conversation/[id]/output/[sha256]": [
+		"src/routes/conversation/[id]/output/[sha256]/+server.ts"
+	],
+	"/conversation/[id]/share": [
+		"src/routes/conversation/[id]/share/+server.ts"
+	],
+	"/conversation/[id]/stop-generating": [
+		"src/routes/conversation/[id]/stop-generating/+server.ts"
+	],
+	"/healthcheck": [
+		"src/routes/healthcheck/+server.ts"
+	],
+	"/login": [
+		"src/routes/login/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/login/callback": [
+		"src/routes/login/callback/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/logout": [
+		"src/routes/logout/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/models": [
+		"src/routes/+layout.server.ts"
+	],
+	"/models/[...model]/thumbnail.png": [
+		"src/routes/models/[...model]/thumbnail.png/+server.ts"
+	],
+	"/models/[...model]": [
+		"src/routes/models/[...model]/+page.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/privacy": [
+		"src/routes/+layout.server.ts"
+	],
+	"/r/[id]": [
+		"src/routes/r/[id]/+page.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/settings/(nav)": [
+		"src/routes/settings/+layout.server.ts",
+		"src/routes/+layout.server.ts",
+		"src/routes/settings/+layout.server.ts",
+		"src/routes/+layout.server.ts",
+		"src/routes/settings/(nav)/+server.ts"
+	],
+	"/settings": [
+		"src/routes/settings/+layout.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/settings/(nav)/assistants/new": [
+		"src/routes/settings/(nav)/assistants/new/+page.server.ts",
+		"src/routes/settings/+layout.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/settings/(nav)/assistants/[assistantId]": [
+		"src/routes/settings/(nav)/assistants/[assistantId]/+page.ts",
+		"src/routes/settings/(nav)/assistants/[assistantId]/+page.server.ts",
+		"src/routes/settings/+layout.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/settings/(nav)/assistants/[assistantId]/avatar.jpg": [
+		"src/routes/settings/(nav)/assistants/[assistantId]/avatar.jpg/+server.ts"
+	],
+	"/settings/(nav)/assistants/[assistantId]/edit": [
+		"src/routes/settings/(nav)/assistants/[assistantId]/edit/+page.server.ts",
+		"src/routes/settings/+layout.server.ts",
+		"src/routes/+layout.server.ts"
+	],
+	"/settings/(nav)/[...model]": [
+		"src/routes/settings/(nav)/[...model]/+page.ts",
+		"src/routes/settings/+layout.server.ts",
+		"src/routes/+layout.server.ts"
+	]
+}
