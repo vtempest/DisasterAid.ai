@@ -11,7 +11,6 @@ import { z } from "zod";
 import {
 	MessageUpdateStatus,
 	MessageUpdateType,
-	MessageWebSearchUpdateType,
 	type MessageUpdate,
 } from "$lib/types/MessageUpdate";
 import { uploadFile } from "$lib/server/files/uploadFile";
@@ -21,6 +20,7 @@ import { buildSubtree } from "$lib/utils/tree/buildSubtree.js";
 import { addChildren } from "$lib/utils/tree/addChildren.js";
 import { addSibling } from "$lib/utils/tree/addSibling.js";
 import { usageLimits } from "$lib/server/usageLimits";
+import { MetricsServer } from "$lib/server/metrics";
 import { textGeneration } from "$lib/server/textGeneration";
 import type { TextGenerationContext } from "$lib/server/textGeneration/types";
 
@@ -102,8 +102,14 @@ export async function POST({ request, locals, params, getClientAddress }) {
 	if (usageLimits?.messagesPerMinute) {
 		// check if the user is rate limited
 		const nEvents = Math.max(
-			await collections.messageEvents.countDocuments({ userId }),
-			await collections.messageEvents.countDocuments({ ip: getClientAddress() })
+			await collections.messageEvents.countDocuments({
+				userId,
+				createdAt: { $gte: new Date(Date.now() - 60_000) },
+			}),
+			await collections.messageEvents.countDocuments({
+				ip: getClientAddress(),
+				createdAt: { $gte: new Date(Date.now() - 60_000) },
+			})
 		);
 		if (nEvents > usageLimits.messagesPerMinute) {
 			throw error(429, ERROR_MESSAGES.rateLimited);
@@ -125,7 +131,13 @@ export async function POST({ request, locals, params, getClientAddress }) {
 	}
 
 	// finally parse the content of the request
-	const json = await request.json();
+	const form = await request.formData();
+
+	const json = form.get("data");
+
+	if (!json || typeof json !== "string") {
+		throw error(400, "Invalid request");
+	}
 
 	const {
 		inputs: newPrompt,
@@ -134,7 +146,6 @@ export async function POST({ request, locals, params, getClientAddress }) {
 		is_continue: isContinue,
 		web_search: webSearch,
 		tools: toolsPreferences,
-		files: inputFiles,
 	} = z
 		.object({
 			id: z.string().uuid().refine(isMessageId).optional(), // parent message id to append to for a normal message, or the message id for a retry/continue
@@ -148,18 +159,24 @@ export async function POST({ request, locals, params, getClientAddress }) {
 			is_continue: z.optional(z.boolean()),
 			web_search: z.optional(z.boolean()),
 			tools: z.record(z.boolean()).optional(),
-			files: z.optional(
-				z.array(
-					z.object({
-						type: z.literal("base64").or(z.literal("hash")),
-						name: z.string(),
-						value: z.string(),
-						mime: z.string(),
-					})
-				)
-			),
 		})
-		.parse(json);
+		.parse(JSON.parse(json));
+
+	const inputFiles = await Promise.all(
+		form
+			.getAll("files")
+			.filter((entry): entry is File => entry instanceof File && entry.size > 0)
+			.map(async (file) => {
+				const [type, ...name] = file.name.split(";");
+
+				return {
+					type: z.literal("base64").or(z.literal("hash")).parse(type),
+					value: await file.text(),
+					mime: file.type,
+					name: name.join(";"),
+				};
+			})
+	);
 
 	if (usageLimits?.messageLength && (newPrompt?.length ?? 0) > usageLimits.messageLength) {
 		throw error(400, "Message too long.");
@@ -293,6 +310,8 @@ export async function POST({ request, locals, params, getClientAddress }) {
 
 	let doneStreaming = false;
 
+	let lastTokenTimestamp: undefined | Date = undefined;
+
 	// we now build the stream
 	const stream = new ReadableStream({
 		async start(controller) {
@@ -306,6 +325,25 @@ export async function POST({ request, locals, params, getClientAddress }) {
 				if (event.type === MessageUpdateType.Stream) {
 					if (event.token === "") return;
 					messageToWriteTo.content += event.token;
+
+					// add to token total
+					MetricsServer.getMetrics().model.tokenCountTotal.inc({ model: model?.id });
+
+					// if this is the first token, add to time to first token
+					if (!lastTokenTimestamp) {
+						MetricsServer.getMetrics().model.timeToFirstToken.observe(
+							{ model: model?.id },
+							Date.now() - promptedAt.getTime()
+						);
+						lastTokenTimestamp = new Date();
+					}
+
+					// add to time per token
+					MetricsServer.getMetrics().model.timePerOutputToken.observe(
+						{ model: model?.id },
+						Date.now() - (lastTokenTimestamp ?? promptedAt).getTime()
+					);
+					lastTokenTimestamp = new Date();
 				}
 
 				// Set the title
@@ -321,6 +359,12 @@ export async function POST({ request, locals, params, getClientAddress }) {
 				else if (event.type === MessageUpdateType.FinalAnswer) {
 					messageToWriteTo.interrupted = event.interrupted;
 					messageToWriteTo.content = initialMessageContent + event.text;
+
+					// add to latency
+					MetricsServer.getMetrics().model.latency.observe(
+						{ model: model?.id },
+						Date.now() - promptedAt.getTime()
+					);
 				}
 
 				// Add file
@@ -329,14 +373,6 @@ export async function POST({ request, locals, params, getClientAddress }) {
 						...(messageToWriteTo.files ?? []),
 						{ type: "hash", name: event.name, value: event.sha, mime: event.mime },
 					];
-				}
-
-				// Set web search
-				else if (
-					event.type === MessageUpdateType.WebSearch &&
-					event.subtype === MessageWebSearchUpdateType.Finished
-				) {
-					messageToWriteTo.webSearch = event.webSearch;
 				}
 
 				// Append to the persistent message updates if it's not a stream update
@@ -379,6 +415,8 @@ export async function POST({ request, locals, params, getClientAddress }) {
 					webSearch: webSearch ?? false,
 					toolsPreference: toolsPreferences ?? {},
 					promptedAt,
+					ip: getClientAddress(),
+					username: locals.user?.username,
 				};
 				// run the text generation and send updates to the client
 				for await (const event of textGeneration(ctx)) await update(event);
@@ -428,6 +466,8 @@ export async function POST({ request, locals, params, getClientAddress }) {
 		);
 	}
 
+	const metrics = MetricsServer.getMetrics();
+	metrics.model.messagesTotal.inc({ model: model?.id });
 	// Todo: maybe we should wait for the message to be saved before ending the response - in case of errors
 	return new Response(stream, {
 		headers: {
