@@ -21,9 +21,29 @@ async function invokeModel() {
       max_gen_len: 512,
       temperature: 0.5,
       top_p: 0.9,
+      "messages": [
+        {
+            "role": "user",
+            "content": [
+                {
+                    "type": "image",
+                    "source": {
+                        "type": "base64",
+                        "media_type": "image/jpeg",
+                        "data": "iVBORw..."
+                    }
+                },
+                {
+                    "type": "text",
+                    "text": "What's in these images?"
+                }
+            ]
+        }
+    ]
     }),
     contentType: "application/json",
     accept: "*/*",
+    
   };
 
   const command = new ConverseCommand(params);
