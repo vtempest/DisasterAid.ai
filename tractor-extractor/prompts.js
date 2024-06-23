@@ -1,3 +1,23 @@
+export const RespondersData =
+
+`
+List of Safe Places in New Mexico
+- **Albuquerque:** Albuquerque Convention Center
+- **Santa Fe:** Santa Fe Community College
+- **Las Cruces:** Las Cruces Convention Center
+- **Roswell:** Roswell Convention Center
+
+Emergency Services in New Mexico
+- **Police:** 911 
+- **Red Cross:** 1-800-RED-CROSS
+
+Communication in New Mexico
+
+
+
+`
+
+
 export const SummaryAgentPrompt = 
 
 `You are an AI agent for disaster response management and your
