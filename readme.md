@@ -22,12 +22,3 @@ Why Our AI Customer Support Chatbot Is Essential in Emergency Response
 Rapid Response Capability: Enables quick dissemination of critical information, helping to reduce panic and confusion in emergency situations.
 Reliable Information Source: Offers a trustworthy source of information, preventing the spread of rumors and misinformation.
 Enhanced Public Safety: By providing accurate alerts and safety instructions, the chatbot plays a crucial role in public safety and emergency preparedness.
-
-
-### Installation
-
-1. `docker run -d -p 27017:27017 --name mongo-chatui mongo:latest`
-
-2. `bun i` 
-
-3. `bun run dev`
