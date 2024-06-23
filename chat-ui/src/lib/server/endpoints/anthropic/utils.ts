@@ -1,30 +1,19 @@
 import type { ImageBlockParam, MessageParam } from "@anthropic-ai/sdk/resources";
-import { makeImageProcessor, type ImageProcessorOptions } from "../images";
 import type { EndpointMessage } from "../endpoints";
 import type { MessageFile } from "$lib/types/Message";
 
 export async function fileToImageBlock(
 	file: MessageFile,
-	opts: ImageProcessorOptions<"image/png" | "image/jpeg" | "image/webp">
-): Promise<ImageBlockParam> {
-	const processor = makeImageProcessor(opts);
-	const { image, mime } = await processor(file);
-
-	return {
-		type: "image",
-		source: {
-			type: "base64",
-			media_type: mime,
-			data: image.toString("base64"),
-		},
-	};
+	opts: any
+): Promise<any> {
+	return false
 }
 
 type NonSystemMessage = EndpointMessage & { from: "user" | "assistant" };
 
 export async function endpointMessagesToAnthropicMessages(
 	messages: EndpointMessage[],
-	multimodal: { image: ImageProcessorOptions<"image/png" | "image/jpeg" | "image/webp"> }
+	multimodal: { image: any }
 ): Promise<MessageParam[]> {
 	return await Promise.all(
 		messages

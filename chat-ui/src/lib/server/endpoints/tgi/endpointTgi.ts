@@ -3,11 +3,6 @@ import { buildPrompt } from "$lib/buildPrompt";
 import { textGenerationStream } from "@huggingface/inference";
 import type { Endpoint, EndpointMessage } from "../endpoints";
 import { z } from "zod";
-import {
-	createImageProcessorOptionsValidator,
-	makeImageProcessor,
-	type ImageProcessor,
-} from "../images";
 
 export const endpointTgiParametersSchema = z.object({
 	weight: z.number().int().positive().default(1),
@@ -16,24 +11,12 @@ export const endpointTgiParametersSchema = z.object({
 	url: z.string().url(),
 	accessToken: z.string().default(env.HF_TOKEN ?? env.HF_ACCESS_TOKEN),
 	authorization: z.string().optional(),
-	multimodal: z
-		.object({
-			// Assumes IDEFICS
-			image: createImageProcessorOptionsValidator({
-				supportedMimeTypes: ["image/jpeg", "image/webp"],
-				preferredMimeType: "image/webp",
-				maxSizeInMB: 5,
-				maxWidth: 224,
-				maxHeight: 224,
-			}),
-		})
-		.default({}),
+	multimodal: z.object({}).default({}),
 });
 
 export function endpointTgi(input: z.input<typeof endpointTgiParametersSchema>): Endpoint {
 	const { url, accessToken, model, authorization, multimodal } =
 		endpointTgiParametersSchema.parse(input);
-	const imageProcessor = makeImageProcessor(multimodal.image);
 
 	return async ({
 		messages,
@@ -45,7 +28,7 @@ export function endpointTgi(input: z.input<typeof endpointTgiParametersSchema>):
 		isMultimodal,
 	}) => {
 		const messagesWithResizedFiles = await Promise.all(
-			messages.map((message) => prepareMessage(Boolean(isMultimodal), message, imageProcessor))
+			messages.map((message) => prepareMessage(Boolean(isMultimodal), message, ""))
 		);
 
 		const prompt = await buildPrompt({
@@ -92,11 +75,11 @@ const whiteImage = {
 async function prepareMessage(
 	isMultimodal: boolean,
 	message: EndpointMessage,
-	imageProcessor: ImageProcessor
+	imageProcessor: any
 ): Promise<EndpointMessage> {
 	if (!isMultimodal) return message;
 
-	const files = await Promise.all(message.files?.map(imageProcessor) ?? [whiteImage]);
+	const files = await Promise.all(message.files ?? [whiteImage]);
 	const markdowns = files.map(
 		(file) => `![](data:${file.mime};base64,${file.image.toString("base64")})`
 	);

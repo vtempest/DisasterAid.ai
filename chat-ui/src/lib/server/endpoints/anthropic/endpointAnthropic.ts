@@ -2,7 +2,6 @@ import { z } from "zod";
 import type { Endpoint } from "../endpoints";
 import { env } from "$env/dynamic/private";
 import type { TextGenerationStreamOutput } from "@huggingface/inference";
-import { createImageProcessorOptionsValidator } from "../images";
 import { endpointMessagesToAnthropicMessages } from "./utils";
 
 export const endpointAnthropicParametersSchema = z.object({
@@ -14,17 +13,8 @@ export const endpointAnthropicParametersSchema = z.object({
 	defaultHeaders: z.record(z.string()).optional(),
 	defaultQuery: z.record(z.string()).optional(),
 	multimodal: z
-		.object({
-			image: createImageProcessorOptionsValidator({
-				supportedMimeTypes: ["image/png", "image/jpeg", "image/webp"],
-				preferredMimeType: "image/webp",
-				// The 4 / 3 compensates for the 33% increase in size when converting to base64
-				maxSizeInMB: (5 / 4) * 3,
-				maxWidth: 4096,
-				maxHeight: 4096,
-			}),
-		})
-		.default({}),
+	.object({})
+	.default({}),
 });
 
 export async function endpointAnthropic(

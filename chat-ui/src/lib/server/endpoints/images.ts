@@ -1,5 +1,5 @@
-import type { Sharp } from "sharp";
-import sharp from "sharp";
+// import type { Sharp } from "sharp";
+// import sharp from "sharp";
 import type { MessageFile } from "$lib/types/Message";
 import { z, type util } from "zod";
 
@@ -46,7 +46,7 @@ export function makeImageProcessor<TMimeType extends string = string>(
 		const { mime, value } = file;
 
 		const buffer = Buffer.from(value, "base64");
-		let sharpInst = sharp(buffer);
+		// let sharpInst = sharp(buffer);
 
 		const metadata = await sharpInst.metadata();
 		if (!metadata) throw Error("Failed to read image metadata");
@@ -206,6 +206,6 @@ function estimateImageSizeInBytes(mime: string, width: number, height: number): 
 	return uncompressedSize * compressionRatio;
 }
 
-export function resizeImage(sharpInst: Sharp, maxWidth: number, maxHeight: number): Sharp {
+export function resizeImage(sharpInst, maxWidth: number, maxHeight: number): Sharp {
 	return sharpInst.resize({ width: maxWidth, height: maxHeight, fit: "inside" });
 }

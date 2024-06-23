@@ -10,7 +10,7 @@ import { html } from "satori-html";
 
 import InterRegular from "../../../../../static/fonts/Inter-Regular.ttf";
 import InterBold from "../../../../../static/fonts/Inter-Bold.ttf";
-import sharp from "sharp";
+// import sharp from "sharp";
 
 export const GET: RequestHandler = (async ({ params }) => {
 	const assistant = await collections.assistants.findOne({
@@ -37,7 +37,7 @@ export const GET: RequestHandler = (async ({ params }) => {
 
 			return fileBuffer;
 		})()
-			.then(async (buf) => sharp(buf).jpeg().toBuffer()) // convert to jpeg bc satori png is really slow
+			// .then(async (buf) => sharp(buf).jpeg().toBuffer()) // convert to jpeg bc satori png is really slow
 			.then(async (buf) => "data:image/jpeg;base64," + buf.toString("base64"));
 	}
 

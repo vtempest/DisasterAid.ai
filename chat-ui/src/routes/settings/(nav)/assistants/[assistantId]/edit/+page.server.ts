@@ -7,7 +7,7 @@ import { ObjectId } from "mongodb";
 import { z } from "zod";
 import { sha256 } from "$lib/utils/sha256";
 
-import sharp from "sharp";
+// import sharp from "sharp";
 import { parseStringToList } from "$lib/utils/parseStringToList";
 import { generateSearchTokens } from "$lib/utils/searchTokens";
 
@@ -107,10 +107,10 @@ export const actions: Actions = {
 		if (parse.data.avatar && parse.data.avatar !== "null" && parse.data.avatar.size > 0) {
 			let image;
 			try {
-				image = await sharp(await parse.data.avatar.arrayBuffer())
-					.resize(512, 512, { fit: "inside" })
-					.jpeg({ quality: 80 })
-					.toBuffer();
+				// image = await sharp(await parse.data.avatar.arrayBuffer())
+				// 	.resize(512, 512, { fit: "inside" })
+				// 	.jpeg({ quality: 80 })
+				// 	.toBuffer();
 			} catch (e) {
 				const errors = [{ field: "avatar", message: (e as Error).message }];
 				return fail(400, { error: true, errors });
