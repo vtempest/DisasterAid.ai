@@ -2,7 +2,7 @@
 	import { marked, type MarkedOptions } from "marked";
 	import markedKatex from "marked-katex-extension";
 	import type { Message, MessageFile } from "$lib/types/Message";
-	import { afterUpdate, createEventDispatcher, onMount, tick } from "svelte";
+	import { afterUpdate, createEventDispatcher, tick } from "svelte";
 	import { deepestChild } from "$lib/utils/deepestChild";
 	import { page } from "$app/stores";
 
@@ -10,29 +10,36 @@
 	import CopyToClipBoardBtn from "../CopyToClipBoardBtn.svelte";
 	import IconLoading from "../icons/IconLoading.svelte";
 	import CarbonRotate360 from "~icons/carbon/rotate-360";
-	import CarbonTrashCan from "~icons/carbon/trash-can";
 	import CarbonDownload from "~icons/carbon/download";
 	import CarbonThumbsUp from "~icons/carbon/thumbs-up";
 	import CarbonThumbsDown from "~icons/carbon/thumbs-down";
 	import CarbonPen from "~icons/carbon/pen";
 	import CarbonChevronLeft from "~icons/carbon/chevron-left";
 	import CarbonChevronRight from "~icons/carbon/chevron-right";
+	import CarbonTools from "~icons/carbon/tools";
 	import { PUBLIC_SEP_TOKEN } from "$lib/constants/publicSepToken";
 	import type { Model } from "$lib/types/Model";
 	import UploadedFile from "./UploadedFile.svelte";
 
 	import OpenWebSearchResults from "../OpenWebSearchResults.svelte";
 	import {
+		MessageToolUpdateType,
 		MessageWebSearchUpdateType,
 		type MessageToolUpdate,
 		type MessageWebSearchSourcesUpdate,
 		type MessageWebSearchUpdate,
 	} from "$lib/types/MessageUpdate";
+	import {
+		isMessageToolCallUpdate,
+		isMessageToolResultUpdate,
+		isMessageToolErrorUpdate,
+	} from "$lib/utils/messageUpdates";
+	import type { ToolFront } from "$lib/types/Tool";
 	import { base } from "$app/paths";
 	import { useConvTreeStore } from "$lib/stores/convTree";
 	import { isReducedMotion } from "$lib/utils/isReduceMotion";
 	import Modal from "../Modal.svelte";
-	import ToolUpdate from "./ToolUpdate.svelte";
+	import { toolHasName } from "$lib/utils/tools";
 
 	function sanitizeMd(md: string) {
 		let ret = md
@@ -81,8 +88,7 @@
 
 	let initialized = false;
 
-	let reducedMotionMode = false;
-
+	const reducedMotionMode = isReducedMotion(window);
 	const renderer = new marked.Renderer();
 	// For code blocks with simple backticks
 	renderer.codespan = (code) => {
@@ -117,10 +123,6 @@
 
 	$: emptyLoad =
 		!message.content && (webSearchIsDone || (searchUpdates && searchUpdates.length === 0));
-
-	onMount(() => {
-		reducedMotionMode = isReducedMotion(window);
-	});
 
 	afterUpdate(() => {
 		if (reducedMotionMode) {
@@ -214,6 +216,8 @@
 	$: if (message.children?.length === 0) $convTreeStore.leaf = message.id;
 
 	$: modalImageToShow = null as MessageFile | null;
+
+	const availableTools: ToolFront[] = $page.data.tools;
 </script>
 
 {#if modalImageToShow}
@@ -268,14 +272,14 @@
 								<img
 									src={urlNotTrailing + "/output/" + file.value}
 									alt="output from assistant"
-									class="my-2 aspect-auto max-h-48 cursor-pointer rounded-lg shadow-lg xl:max-h-56"
+									class="my-2 aspect-auto max-h-48 cursor-pointer rounded-lg shadow-lg"
 								/>
 							{:else}
 								<!-- handle the case where this is a base64 encoded image -->
 								<img
 									src={`data:${file.mime};base64,${file.value}`}
 									alt="output from assistant"
-									class="my-2 aspect-auto max-h-48 cursor-pointer rounded-lg shadow-lg xl:max-h-56"
+									class="my-2 aspect-auto max-h-48 cursor-pointer rounded-lg shadow-lg"
 								/>
 							{/if}
 						</button>
@@ -292,7 +296,72 @@
 			{#if toolUpdates}
 				{#each Object.values(toolUpdates) as tool}
 					{#if tool.length}
-						<ToolUpdate {tool} {loading} />
+						{@const toolName = tool.find(isMessageToolCallUpdate)?.call.name}
+						{@const toolError = tool.some(isMessageToolErrorUpdate)}
+						{@const toolDone = tool.some(isMessageToolResultUpdate)}
+						{#if toolName && toolName !== "websearch"}
+							<details
+								class="group/tool my-2.5 w-fit cursor-pointer rounded-lg border border-gray-200 bg-white pl-1 pr-2.5 text-sm shadow-sm transition-all open:mb-3
+								open:border-purple-500/10 open:bg-purple-600/5 open:shadow-sm dark:border-gray-800 dark:bg-gray-900 open:dark:border-purple-800/40 open:dark:bg-purple-800/10"
+							>
+								<summary
+									class="flex select-none list-none items-center gap-1.5 py-1 group-open/tool:text-purple-700 group-open/tool:dark:text-purple-300"
+								>
+									<div
+										class="relative grid size-[22px] place-items-center rounded bg-purple-600/10 dark:bg-purple-600/20"
+									>
+										<svg
+											class="absolute inset-0 text-purple-500/40 transition-opacity"
+											class:invisible={toolDone || toolError}
+											width="22"
+											height="22"
+											viewBox="0 0 38 38"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												class="loading-path"
+												d="M8 2.5H30C30 2.5 35.5 2.5 35.5 8V30C35.5 30 35.5 35.5 30 35.5H8C8 35.5 2.5 35.5 2.5 30V8C2.5 8 2.5 2.5 8 2.5Z"
+												stroke="currentColor"
+												stroke-width="1"
+												stroke-linecap="round"
+												id="shape"
+											/>
+										</svg>
+										<CarbonTools class="text-xs text-purple-700 dark:text-purple-500" />
+									</div>
+
+									<span>
+										{toolError ? "Error calling" : toolDone ? "Called" : "Calling"} tool
+										<span class="font-semibold"
+											>{availableTools.find((el) => toolHasName(toolName, el))?.displayName}</span
+										>
+									</span>
+								</summary>
+								{#each tool as toolUpdate}
+									{#if toolUpdate.subtype === MessageToolUpdateType.Call}
+										<div class="mt-1 flex items-center gap-2 opacity-80">
+											<h3 class="text-sm">Parameters</h3>
+											<div class="h-px flex-1 bg-gradient-to-r from-gray-500/20" />
+										</div>
+										<ul class="py-1 text-sm">
+											{#each Object.entries(toolUpdate.call.parameters ?? {}) as [k, v]}
+												<li>
+													<span class="font-semibold">{k}</span>:
+													<span>{v}</span>
+												</li>
+											{/each}
+										</ul>
+									{:else if toolUpdate.subtype === MessageToolUpdateType.Error}
+										<div class="mt-1 flex items-center gap-2 opacity-80">
+											<h3 class="text-sm">Error</h3>
+											<div class="h-px flex-1 bg-gradient-to-r from-gray-500/20" />
+										</div>
+										<p class="text-sm">{toolUpdate.message}</p>
+									{/if}
+								{/each}
+							</details>
+						{/if}
 					{/if}
 				{/each}
 			{/if}
@@ -513,7 +582,7 @@
 		<svelte:fragment slot="childrenNav">
 			{#if nChildren > 1 && $convTreeStore.editing === null}
 				<div
-					class="font-white group/navbranch z-10 -mt-1 ml-3.5 mr-auto flex h-6 w-fit select-none flex-row items-center justify-center gap-1 text-sm"
+					class="font-white z-10 -mt-1 ml-3.5 mr-auto flex h-6 w-fit select-none flex-row items-center justify-center gap-1 text-sm"
 				>
 					<button
 						class="inline text-lg font-thin text-gray-400 disabled:pointer-events-none disabled:opacity-25 hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-200"
@@ -536,19 +605,6 @@
 					>
 						<CarbonChevronRight class="text-sm" />
 					</button>
-					{#if !loading && message.children}<form
-							method="POST"
-							action="?/deleteBranch"
-							class="hidden group-hover/navbranch:block"
-						>
-							<input name="messageId" value={message.children[childrenToRender]} type="hidden" />
-							<button
-								class="flex items-center justify-center text-xs text-gray-400 hover:text-gray-800 dark:text-gray-500 dark:hover:text-gray-200"
-								type="submit"
-								><CarbonTrashCan />
-							</button>
-						</form>
-					{/if}
 				</div>
 			{/if}
 		</svelte:fragment>
@@ -556,6 +612,15 @@
 {/if}
 
 <style>
+	details summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.loading-path {
+		stroke-dasharray: 61.45;
+		animation: loading 2s linear infinite;
+	}
+
 	@keyframes loading {
 		to {
 			stroke-dashoffset: 122.9;

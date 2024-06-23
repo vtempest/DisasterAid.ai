@@ -14,85 +14,19 @@ load_balancing_strategy: random
 
 # Chat UI
 
-**Find the docs at [hf.co/docs/chat-ui](https://huggingface.co/docs/chat-ui/index).**
-
 ![Chat UI repository thumbnail](https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/chatui-websearch.png)
 
 A chat interface using open source models, eg OpenAssistant or Llama. It is a SvelteKit app and it powers the [HuggingChat app on hf.co/chat](https://huggingface.co/chat).
 
-0. [Quickstart](#quickstart)
-1. [No Setup Deploy](#no-setup-deploy)
-2. [Setup](#setup)
-3. [Launch](#launch)
-4. [Web Search](#web-search)
-5. [Text Embedding Models](#text-embedding-models)
-6. [Extra parameters](#extra-parameters)
-7. [Common issues](#common-issues)
-8. [Deploying to a HF Space](#deploying-to-a-hf-space)
-9. [Building](#building)
-
-## Quickstart
-
-You can quickly start a locally running chat-ui & LLM text-generation server thanks to chat-ui's [llama.cpp server support](https://huggingface.co/docs/chat-ui/configuration/models/providers/llamacpp).
-
-**Step 1 (Start llama.cpp server):**
-
-```bash
-# install llama.cpp
-brew install llama.cpp
-# start llama.cpp server (using hf.co/microsoft/Phi-3-mini-4k-instruct-gguf as an example)
-llama-server --hf-repo microsoft/Phi-3-mini-4k-instruct-gguf --hf-file Phi-3-mini-4k-instruct-q4.gguf -c 4096
-```
-
-A local LLaMA.cpp HTTP Server will start on `http://localhost:8080`. Read more [here](https://huggingface.co/docs/chat-ui/configuration/models/providers/llamacpp).
-
-**Step 2 (tell chat-ui to use local llama.cpp server):**
-
-Add the following to your `.env.local`:
-
-```ini
-MODELS=`[
-  {
-    "name": "Local microsoft/Phi-3-mini-4k-instruct-gguf",
-    "tokenizer": "microsoft/Phi-3-mini-4k-instruct-gguf",
-    "preprompt": "",
-    "chatPromptTemplate": "<s>{{preprompt}}{{#each messages}}{{#ifUser}}<|user|>\n{{content}}<|end|>\n<|assistant|>\n{{/ifUser}}{{#ifAssistant}}{{content}}<|end|>\n{{/ifAssistant}}{{/each}}",
-    "parameters": {
-      "stop": ["<|end|>", "<|endoftext|>", "<|assistant|>"],
-      "temperature": 0.7,
-      "max_new_tokens": 1024,
-      "truncate": 3071
-    },
-    "endpoints": [{
-      "type" : "llamacpp",
-      "baseURL": "http://localhost:8080"
-    }],
-  },
-]`
-```
-
-Read more [here](https://huggingface.co/docs/chat-ui/configuration/models/providers/llamacpp).
-
-**Step 3 (make sure you have MongoDb running locally):**
-
-```bash
-docker run -d -p 27017:27017 --name mongo-chatui mongo:latest
-```
-
-Read more [here](#database).
-
-**Step 4 (start chat-ui):**
-
-```bash
-git clone https://github.com/huggingface/chat-ui
-cd chat-ui
-npm install
-npm run dev -- --open
-```
-
-Read more [here](#launch).
-
-<img class="hidden dark:block" src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/chat-ui/llamacpp-dark.png" height="auto"/>
+0. [No Setup Deploy](#no-setup-deploy)
+1. [Setup](#setup)
+2. [Launch](#launch)
+3. [Web Search](#web-search)
+4. [Text Embedding Models](#text-embedding-models)
+5. [Extra parameters](#extra-parameters)
+6. [Common issues](#common-issues)
+7. [Deploying to a HF Space](#deploying-to-a-hf-space)
+8. [Building](#building)
 
 ## No Setup Deploy
 
@@ -211,19 +145,6 @@ OPENID_CONFIG=`{
 
 These variables will enable the openID sign-in modal for users.
 
-### Trusted header authentication
-
-You can set the env variable `TRUSTED_EMAIL_HEADER` to point to the header that contains the user's email address. This will allow you to authenticate users from the header. This setup is usually combined with a proxy that will be in front of chat-ui and will handle the auth and set the header.
-
-> [!WARNING]
-> Make sure to only allow requests to chat-ui through your proxy which handles authentication, otherwise users could authenticate as anyone by setting the header manually! Only set this up if you understand the implications and know how to do it correctly.
-
-Here is a list of header names for common auth providers:
-
-- Tailscale Serve: `Tailscale-User-Login`
-- Cloudflare Access: `Cf-Access-Authenticated-User-Email`
-- oauth2-proxy: `X-Forwarded-Email`
-
 ### Theming
 
 You can use a few environment variables to customize the look and feel of chat-ui. These are by default:
@@ -245,11 +166,11 @@ PUBLIC_APP_DISCLAIMER=
 
 ### Web Search config
 
-You can enable the web search through an API by adding `YDC_API_KEY` ([docs.you.com](https://docs.you.com)) or `SERPER_API_KEY` ([serper.dev](https://serper.dev/)) or `SERPAPI_KEY` ([serpapi.com](https://serpapi.com/)) or `SERPSTACK_API_KEY` ([serpstack.com](https://serpstack.com/)) or `SEARCHAPI_KEY` ([searchapi.io](https://www.searchapi.io/)) to your `.env.local`.
+You can enable the web search through an API by adding `YDC_API_KEY` ([docs.you.com](https://docs.you.com)) or `SERPER_API_KEY` ([serper.dev](https://serper.dev/)) or `SERPAPI_KEY` ([serpapi.com](https://serpapi.com/)) or `SERPSTACK_API_KEY` ([serpstack.com](https://serpstack.com/)) to your `.env.local`.
 
 You can also simply enable the local google websearch by setting `USE_LOCAL_WEBSEARCH=true` in your `.env.local` or specify a SearXNG instance by adding the query URL to `SEARXNG_QUERY_URL`.
 
-You can enable javascript when parsing webpages to improve compatibility with `WEBSEARCH_JAVASCRIPT=true` at the cost of increased CPU usage. You'll want at least 4 cores when enabling.
+You can enable Javascript when parsing webpages to improve compatibility with `WEBSEARCH_JAVASCRIPT=true` at the cost of increased CPU usage. You'll want at least 4 cores when enabling.
 
 ### Custom models
 
@@ -309,7 +230,7 @@ The following is the default `chatPromptTemplate`, although newlines and indenti
 
 #### Multi modal model
 
-We currently support [IDEFICS](https://huggingface.co/blog/idefics) (hosted on TGI), OpenAI and Claude 3 as multimodal models. You can enable it by setting `multimodal: true` in your `MODELS` configuration. For IDEFICS, you must have a [PRO HF Api token](https://huggingface.co/settings/tokens). For OpenAI, see the [OpenAI section](#OpenAI). For Anthropic, see the [Anthropic section](#anthropic).
+We currently support [IDEFICS](https://huggingface.co/blog/idefics) (hosted on TGI), OpenAI and Claude 3 as multimodal models. You can enable it by setting `multimodal: true` in your `MODELS` configuration. For IDEFICS, you must have a [PRO HF Api token](https://huggingface.co/settings/tokens). For OpenAI, see the [OpenAI section](#OpenAI). For Anthropic, see the [Anthropic section](#Anthropic).
 
 ```env
     {
@@ -352,11 +273,9 @@ If `endpoints` are left unspecified, ChatUI will look for the model on the hoste
 
 ##### OpenAI API compatible models
 
-Chat UI can be used with any API server that supports OpenAI API compatibility, for example [text-generation-webui](https://github.com/oobabooga/text-generation-webui/tree/main/extensions/openai), [LocalAI](https://github.com/go-skynet/LocalAI), [FastChat](https://github.com/lm-sys/FastChat/blob/main/docs/openai_api.md), [llama-cpp-python](https://github.com/abetlen/llama-cpp-python), and [ialacol](https://github.com/chenhunghan/ialacol) and [vllm](https://docs.vllm.ai/en/latest/serving/openai_compatible_server.html).
+Chat UI can be used with any API server that supports OpenAI API compatibility, for example [text-generation-webui](https://github.com/oobabooga/text-generation-webui/tree/main/extensions/openai), [LocalAI](https://github.com/go-skynet/LocalAI), [FastChat](https://github.com/lm-sys/FastChat/blob/main/docs/openai_api.md), [llama-cpp-python](https://github.com/abetlen/llama-cpp-python), and [ialacol](https://github.com/chenhunghan/ialacol).
 
 The following example config makes Chat UI works with [text-generation-webui](https://github.com/oobabooga/text-generation-webui/tree/main/extensions/openai), the `endpoint.baseUrl` is the url of the OpenAI API compatible server, this overrides the baseUrl to be used by OpenAI instance. The `endpoint.completion` determine which endpoint to be used, default is `chat_completions` which uses `v1/chat/completions`, change to `endpoint.completion` to `completions` to use the `v1/completions` endpoint.
-
-Parameters not supported by OpenAI (e.g., top_k, repetition_penalty, etc.) must be set in the extraBody of endpoints. Be aware that setting them in parameters will cause them to be omitted.
 
 ```
 MODELS=`[
@@ -366,17 +285,15 @@ MODELS=`[
     "parameters": {
       "temperature": 0.9,
       "top_p": 0.95,
+      "repetition_penalty": 1.2,
+      "top_k": 50,
+      "truncate": 1000,
       "max_new_tokens": 1024,
       "stop": []
     },
     "endpoints": [{
       "type" : "openai",
-      "baseURL": "http://localhost:8000/v1",
-      "extraBody": {
-        "repetition_penalty": 1.2,
-        "top_k": 50,
-        "truncate": 1000
-      }
+      "baseURL": "http://localhost:8000/v1"
     }]
   }
 ]`
@@ -479,14 +396,11 @@ MODELS=`[{
 
 chat-ui also supports the llama.cpp API server directly without the need for an adapter. You can do this using the `llamacpp` endpoint type.
 
-If you want to run Chat UI with llama.cpp, you can do the following, using [microsoft/Phi-3-mini-4k-instruct-gguf](https://huggingface.co/microsoft/Phi-3-mini-4k-instruct-gguf) as an example model:
+If you want to run chat-ui with llama.cpp, you can do the following, using Zephyr as an example model:
 
-```bash
-# install llama.cpp
-brew install llama.cpp
-# start llama.cpp server
-llama-server --hf-repo microsoft/Phi-3-mini-4k-instruct-gguf --hf-file Phi-3-mini-4k-instruct-q4.gguf -c 4096
-```
+1. Get [the weights](https://huggingface.co/TheBloke/zephyr-7B-beta-GGUF/tree/main) from the hub
+2. Run the server with the following command: `./server -m models/zephyr-7b-beta.Q4_K_M.gguf -c 2048 -np 3`
+3. Add the following to your `.env.local`:
 
 ```env
 MODELS=`[
@@ -713,6 +627,9 @@ You can find the list of models available on Cloudflare [here](https://developer
 }
 ```
 
+> [!NOTE]  
+> Cloudlare Workers AI currently do not support custom sampling parameters like temperature, top_p, etc.
+
 #### Cohere
 
 You can also use Cohere to run their models directly from chat-ui. You will need to have a Cohere account, then get your [API token](https://dashboard.cohere.com/api-keys). You can either specify it directly in your `.env.local` using the `COHERE_API_TOKEN` variable, or you can set it in the endpoint config.
@@ -771,7 +688,6 @@ MODELS=`[
           // Optional
           "safetyThreshold": "BLOCK_MEDIUM_AND_ABOVE",
           "apiEndpoint": "", // alternative api endpoint url,
-          // Optional
           "tools": [{
             "googleSearchRetrieval": {
               "disableAttribution": true

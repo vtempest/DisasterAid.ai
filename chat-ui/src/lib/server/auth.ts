@@ -110,13 +110,9 @@ export async function getOIDCAuthorizationUrl(
 	});
 }
 
-export async function getOIDCUserData(
-	settings: OIDCSettings,
-	code: string,
-	iss?: string
-): Promise<OIDCUserInfo> {
+export async function getOIDCUserData(settings: OIDCSettings, code: string): Promise<OIDCUserInfo> {
 	const client = await getOIDCClient(settings);
-	const token = await client.callback(settings.redirectURI, { code, iss });
+	const token = await client.callback(settings.redirectURI, { code });
 	const userData = await client.userinfo(token);
 
 	return { token, userData };

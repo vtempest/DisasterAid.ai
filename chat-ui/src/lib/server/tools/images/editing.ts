@@ -1,7 +1,8 @@
 import type { BackendTool } from "..";
 import { uploadFile } from "../../files/uploadFile";
+import { ToolResultStatus } from "$lib/types/Tool";
 import { MessageUpdateType } from "$lib/types/MessageUpdate";
-import { callSpace, getIpToken, type GradioImage } from "../utils";
+import { callSpace, type GradioImage } from "../utils";
 import { downloadFile } from "$lib/server/files/downloadFile";
 
 type ImageEditingInput = [
@@ -18,7 +19,6 @@ const imageEditing: BackendTool = {
 	displayName: "Image Editing",
 	description: "Use this tool to edit an image from a prompt.",
 	isOnByDefault: true,
-	mimeTypes: ["image/*"],
 	parameterDefinitions: {
 		prompt: {
 			description:
@@ -37,25 +37,36 @@ const imageEditing: BackendTool = {
 			required: true,
 		},
 	},
-	async *call({ prompt, fileMessageIndex, fileIndex }, { conv, messages, ip, username }) {
+	async *call({ prompt, fileMessageIndex, fileIndex }, { conv, messages }) {
 		prompt = String(prompt);
 		fileMessageIndex = Number(fileMessageIndex);
 		fileIndex = Number(fileIndex);
 
 		const message = messages[fileMessageIndex];
 		const images = message?.files ?? [];
-		if (!images || images.length === 0) throw Error("User did not provide an image to edit");
-		if (fileIndex >= images.length) throw Error("Model provided an invalid file index");
+		if (!images || images.length === 0) {
+			return {
+				status: ToolResultStatus.Error,
+				message: "User did not provide an image to edit.",
+			};
+		}
+		if (fileIndex >= images.length) {
+			return {
+				status: ToolResultStatus.Error,
+				message: "Model provided an invalid file index",
+			};
+		}
 		if (!images[fileIndex].mime.startsWith("image/")) {
-			throw Error("Model provided a file idex which is not an image");
+			return {
+				status: ToolResultStatus.Error,
+				message: "Model provided a file indx which is not an image",
+			};
 		}
 
 		// todo: should handle multiple images
 		const image = await downloadFile(images[fileIndex].value, conv._id)
 			.then((file) => fetch(`data:${file.mime};base64,${file.value}`))
 			.then((res) => res.blob());
-
-		const ipToken = await getIpToken(ip, username);
 
 		const outputs = await callSpace<ImageEditingInput, ImageEditingOutput>(
 			"multimodalart/cosxl",
@@ -66,8 +77,7 @@ const imageEditing: BackendTool = {
 				"", // negative prompt
 				7, // guidance scale
 				20, // steps
-			],
-			ipToken
+			]
 		);
 
 		const outputImage = await fetch(outputs[0].url)
@@ -83,9 +93,10 @@ const imageEditing: BackendTool = {
 		};
 
 		return {
+			status: ToolResultStatus.Success,
 			outputs: [
 				{
-					imageEditing: `An image has been generated for the following prompt: "${prompt}". Answer as if the user can already see the image. Do not try to insert the image or to add space for it. The user can already see the image. Do not try to describe the image as you the model cannot see it. Be concise.`,
+					imageEditing: `An image has been generated for the following prompt: "${prompt}". Answer as if the user can already see the image. Do not try to insert the image or to add space for it. The user can already see the image. Do not try to describe the image as you the model cannot see it.`,
 				},
 			],
 			display: false,

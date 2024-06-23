@@ -7,7 +7,6 @@ import { buildPrompt } from "$lib/buildPrompt";
 import { env } from "$env/dynamic/private";
 import type { Endpoint } from "../endpoints";
 import type OpenAI from "openai";
-import { createImageProcessorOptionsValidator, makeImageProcessor } from "../images";
 import type { MessageFile } from "$lib/types/Message";
 import type { EndpointMessage } from "../endpoints";
 
@@ -24,22 +23,7 @@ export const endpointOAIParametersSchema = z.object({
 	defaultQuery: z.record(z.string()).optional(),
 	extraBody: z.record(z.any()).optional(),
 	multimodal: z
-		.object({
-			image: createImageProcessorOptionsValidator({
-				supportedMimeTypes: [
-					"image/png",
-					"image/jpeg",
-					"image/webp",
-					"image/avif",
-					"image/tiff",
-					"image/gif",
-				],
-				preferredMimeType: "image/webp",
-				maxSizeInMB: Infinity,
-				maxWidth: 4096,
-				maxHeight: 4096,
-			}),
-		})
+		.object({})
 		.default({}),
 });
 
@@ -72,7 +56,6 @@ export async function endpointOai(
 		defaultQuery,
 	});
 
-	const imageProcessor = makeImageProcessor(multimodal.image);
 
 	if (completion === "completions") {
 		return async ({ messages, preprompt, continueMessage, generateSettings }) => {
@@ -104,7 +87,7 @@ export async function endpointOai(
 	} else if (completion === "chat_completions") {
 		return async ({ messages, preprompt, generateSettings }) => {
 			let messagesOpenAI: OpenAI.Chat.Completions.ChatCompletionMessageParam[] =
-				await prepareMessages(messages, imageProcessor);
+				await prepareMessages(messages, "null");
 
 			if (messagesOpenAI?.[0]?.role !== "system") {
 				messagesOpenAI = [{ role: "system", content: "" }, ...messagesOpenAI];
@@ -139,7 +122,7 @@ export async function endpointOai(
 
 async function prepareMessages(
 	messages: EndpointMessage[],
-	imageProcessor: ReturnType<typeof makeImageProcessor>
+	imageProcessor: any
 ): Promise<OpenAI.Chat.Completions.ChatCompletionMessageParam[]> {
 	return Promise.all(
 		messages.map(async (message) => {
@@ -161,7 +144,7 @@ async function prepareMessages(
 }
 
 async function prepareFiles(
-	imageProcessor: ReturnType<typeof makeImageProcessor>,
+	imageProcessor: any,
 	files: MessageFile[]
 ): Promise<OpenAI.Chat.Completions.ChatCompletionContentPartImage[]> {
 	const processedFiles = await Promise.all(files.map(imageProcessor));

@@ -1,4 +1,4 @@
-import type { WebSearchSource } from "$lib/types/WebSearch";
+import type { WebSearch, WebSearchSource } from "$lib/types/WebSearch";
 import type { ToolCall, ToolResult } from "$lib/types/Tool";
 
 export type MessageUpdate =
@@ -39,7 +39,7 @@ export enum MessageWebSearchUpdateType {
 	Sources = "sources",
 	Finished = "finished",
 }
-export interface BaseMessageWebSearchUpdate<TSubType extends MessageWebSearchUpdateType> {
+interface BaseMessageWebSearchUpdate<TSubType extends MessageWebSearchUpdateType> {
 	type: MessageUpdateType.WebSearch;
 	subtype: TSubType;
 }
@@ -58,8 +58,10 @@ export interface MessageWebSearchSourcesUpdate
 	message: string;
 	sources: WebSearchSource[];
 }
-export type MessageWebSearchFinishedUpdate =
-	BaseMessageWebSearchUpdate<MessageWebSearchUpdateType.Finished>;
+export interface MessageWebSearchFinishedUpdate
+	extends BaseMessageWebSearchUpdate<MessageWebSearchUpdateType.Finished> {
+	webSearch: WebSearch;
+}
 export type MessageWebSearchUpdate =
 	| MessageWebSearchErrorUpdate
 	| MessageWebSearchGeneralUpdate

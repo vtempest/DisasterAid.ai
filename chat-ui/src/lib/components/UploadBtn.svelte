@@ -3,7 +3,6 @@
 
 	export let classNames = "";
 	export let files: File[];
-	export let mimeTypes: string[];
 
 	/**
 	 * Due to a bug with Svelte, we cannot use bind:files with multiple
@@ -23,7 +22,7 @@
 		class="absolute w-full cursor-pointer opacity-0"
 		type="file"
 		on:change={onFileChange}
-		accept={mimeTypes.join(",")}
+		accept="*/*"
 	/>
 	<CarbonUpload class="mr-2 text-xxs" /> Upload file
 </button>

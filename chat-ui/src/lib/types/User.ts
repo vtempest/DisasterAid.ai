@@ -9,5 +9,4 @@ export interface User extends Timestamps {
 	email?: string;
 	avatarUrl: string | undefined;
 	hfUserId: string;
-	isAdmin?: boolean;
 }

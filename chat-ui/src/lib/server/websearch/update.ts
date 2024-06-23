@@ -1,4 +1,4 @@
-import type { WebSearchSource } from "$lib/types/WebSearch";
+import type { WebSearch, WebSearchSource } from "$lib/types/WebSearch";
 import {
 	MessageUpdateType,
 	MessageWebSearchUpdateType,
@@ -33,13 +33,14 @@ export function makeSourcesUpdate(sources: WebSearchSource[]): MessageWebSearchS
 		type: MessageUpdateType.WebSearch,
 		subtype: MessageWebSearchUpdateType.Sources,
 		message: "sources",
-		sources: sources.map(({ link, title }) => ({ link, title })),
+		sources,
 	};
 }
 
-export function makeFinalAnswerUpdate(): MessageWebSearchFinishedUpdate {
+export function makeFinalAnswerUpdate(webSearch: WebSearch): MessageWebSearchFinishedUpdate {
 	return {
 		type: MessageUpdateType.WebSearch,
 		subtype: MessageWebSearchUpdateType.Finished,
+		webSearch,
 	};
 }

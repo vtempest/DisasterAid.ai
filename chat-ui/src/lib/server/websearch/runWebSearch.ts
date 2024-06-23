@@ -17,7 +17,6 @@ import {
 	makeSourcesUpdate,
 } from "./update";
 import { mergeAsyncGenerators } from "$lib/utils/mergeAsyncGenerators";
-import { MetricsServer } from "../metrics";
 
 const MAX_N_PAGES_TO_SCRAPE = 8 as const;
 const MAX_N_PAGES_TO_EMBED = 5 as const;
@@ -31,8 +30,6 @@ export async function* runWebSearch(
 	const prompt = messages[messages.length - 1].content;
 	const createdAt = new Date();
 	const updatedAt = new Date();
-
-	MetricsServer.getMetrics().webSearch.requestCount.inc();
 
 	try {
 		const embeddingModel =
@@ -82,7 +79,7 @@ export async function* runWebSearch(
 			createdAt,
 			updatedAt,
 		};
-		yield makeFinalAnswerUpdate();
+		yield makeFinalAnswerUpdate(webSearch);
 		return webSearch;
 	} catch (searchError) {
 		const message = searchError instanceof Error ? searchError.message : String(searchError);
@@ -97,7 +94,7 @@ export async function* runWebSearch(
 			createdAt,
 			updatedAt,
 		};
-		yield makeFinalAnswerUpdate();
+		yield makeFinalAnswerUpdate(webSearch);
 		return webSearch;
 	}
 }

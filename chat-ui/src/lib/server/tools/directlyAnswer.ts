@@ -1,3 +1,4 @@
+import { ToolResultStatus } from "$lib/types/Tool";
 import type { BackendTool } from ".";
 
 const directlyAnswer: BackendTool = {
@@ -9,6 +10,7 @@ const directlyAnswer: BackendTool = {
 	parameterDefinitions: {},
 	async *call() {
 		return {
+			status: ToolResultStatus.Success,
 			outputs: [],
 			display: false,
 		};

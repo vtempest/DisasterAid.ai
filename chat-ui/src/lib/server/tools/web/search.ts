@@ -1,3 +1,4 @@
+import { ToolResultStatus } from "$lib/types/Tool";
 import type { BackendTool } from "..";
 import { runWebSearch } from "../../websearch/runWebSearch";
 
@@ -22,6 +23,7 @@ const websearch: BackendTool = {
 			.join("\n------------\n");
 
 		return {
+			status: ToolResultStatus.Success,
 			outputs: [{ websearch: chunks }],
 			display: false,
 		};

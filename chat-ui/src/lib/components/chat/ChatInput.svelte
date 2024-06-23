@@ -37,7 +37,7 @@
 	});
 </script>
 
-<div class="relative min-w-0 flex-1" on:paste>
+<div class="relative min-w-0 flex-1">
 	<pre
 		class="scrollbar-custom invisible overflow-x-hidden overflow-y-scroll whitespace-pre-wrap break-words p-3"
 		aria-hidden="true"

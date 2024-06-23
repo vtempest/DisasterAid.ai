@@ -1,4 +1,4 @@
-### DisasterAid
+### DisasterAid.AI
 
 
 In critical situations, timely and accurate information can make a significant difference. Our AI-driven Customer Support Chatbot is specifically designed to provide crucial information during emergencies and to send timely alerts and safety instructions, ensuring rapid response and heightened safety for all involved.
@@ -26,7 +26,8 @@ Enhanced Public Safety: By providing accurate alerts and safety instructions, th
 
 ### Installation
 
-`docker run -d -p 27017:27017 --name mongo-chatui mongo:latest`
+1. `docker run -d -p 27017:27017 --name mongo-chatui mongo:latest`
 
+2. `bun i` 
 
-`npm run dev`
+3. `bun run dev`
