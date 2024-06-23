@@ -107,6 +107,8 @@ declare module '$env/static/private' {
 	export const EDITOR: string;
 	export const EFC_19720: string;
 	export const FILE_PWD: string;
+	export const FPS_BROWSER_APP_PROFILE_STRING: string;
+	export const FPS_BROWSER_USER_PROFILE_STRING: string;
 	export const GIT_ASKPASS: string;
 	export const HOMEDRIVE: string;
 	export const HOMEPATH: string;
@@ -129,7 +131,6 @@ declare module '$env/static/private' {
 	export const NU_LOG_FORMAT: string;
 	export const NU_VERSION: string;
 	export const NVTOOLSEXT_PATH: string;
-	export const OLDPWD: string;
 	export const OneDrive: string;
 	export const ORIGINAL_XDG_CURRENT_DESKTOP: string;
 	export const OS: string;
@@ -290,6 +291,8 @@ declare module '$env/dynamic/private' {
 		EDITOR: string;
 		EFC_19720: string;
 		FILE_PWD: string;
+		FPS_BROWSER_APP_PROFILE_STRING: string;
+		FPS_BROWSER_USER_PROFILE_STRING: string;
 		GIT_ASKPASS: string;
 		HOMEDRIVE: string;
 		HOMEPATH: string;
@@ -312,7 +315,6 @@ declare module '$env/dynamic/private' {
 		NU_LOG_FORMAT: string;
 		NU_VERSION: string;
 		NVTOOLSEXT_PATH: string;
-		OLDPWD: string;
 		OneDrive: string;
 		ORIGINAL_XDG_CURRENT_DESKTOP: string;
 		OS: string;

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { marked } from "marked";
-	import privacy from "../../../PRIVACY.md?raw";
+	import privacy from "./PRIVACY.md?raw";
 </script>
 
 <div class="overflow-auto p-6">

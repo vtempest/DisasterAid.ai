@@ -26,6 +26,7 @@ export default defineConfig({
 		loadTTFAsArrayBuffer(),
 	],
 	optimizeDeps: {
+		exclude: ["sharp"],
 		include: ["browser-image-resizer", "uuid", "@xenova/transformers"],
 	},
 });

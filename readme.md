@@ -1,6 +1,5 @@
 ### DisasterAid.AI
 
-
 In critical situations, timely and accurate information can make a significant difference. Our AI-driven Customer Support Chatbot is specifically designed to provide crucial information during emergencies and to send timely alerts and safety instructions, ensuring rapid response and heightened safety for all involved.
 
 Prompt Delivery of Critical Information During Emergencies¶
@@ -22,3 +21,13 @@ Why Our AI Customer Support Chatbot Is Essential in Emergency Response
 Rapid Response Capability: Enables quick dissemination of critical information, helping to reduce panic and confusion in emergency situations.
 Reliable Information Source: Offers a trustworthy source of information, preventing the spread of rumors and misinformation.
 Enhanced Public Safety: By providing accurate alerts and safety instructions, the chatbot plays a crucial role in public safety and emergency preparedness.
+
+### Installation
+
+`docker run -d -p 27017:27017 --name mongo-chatui mongo:latest`
+
+yarn
+`yarn add sharp --ignore-engines`
+
+npm install --unsafe-perm
+npm install sharp --ignore-scripts
