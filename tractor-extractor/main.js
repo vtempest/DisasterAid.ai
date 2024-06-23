@@ -3,17 +3,19 @@ import process from "./you-search.js";
 
 // Call the function with a query parameter
 
-import {SummaryAgentPrompt, RespondersData} from "./prompts.js"
+import {SummaryAgentPrompt, evacuationCenters, RespondersData} from "./prompts.js"
 
 async function main(searchTerms) {
-  var data = await process(searchTerms, { limit: 6 });
+  var data = await process(searchTerms, { limit: 3 });
   var extractionString = JSON.stringify(data, null, 2);
 
 //   console.log(extractionString);
 
   var queryString =
-    RespondersData +
     SummaryAgentPrompt +
+    
+    "Evacuation Centers: " +
+    JSON.stringify(evacuationCenters, null, 2) +
     "NEWS: " +
     extractionString;
 
