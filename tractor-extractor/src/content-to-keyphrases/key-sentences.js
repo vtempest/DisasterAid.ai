@@ -50,7 +50,7 @@ export function weightKeySentences(inputString, options = {}) {
     })
     .json() // [...{text: "", terms: [...{tags:[], text, normal, pre, post}] }]
     .map((sentence, sentenceNumber) => {
-      console.log(sentence.text);
+      // console.log(sentence.text);
       if (sentence.text.includes("<p>")) {
         sentence.startsParagraph = true;
       }
@@ -160,7 +160,7 @@ export function weightKeySentences(inputString, options = {}) {
       if (wikiEntities.length) {
         keyphraseGram.wikiEntity = wikiEntities[0].text;
         keyphraseGram.weight = keyphraseGram.weight * 2;
-        console.log(keyphraseGram.wikiEntity);
+        // console.log(keyphraseGram.wikiEntity);
       }
 
       return keyphraseGram;

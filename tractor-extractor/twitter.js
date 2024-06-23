@@ -10,7 +10,7 @@ async function getTwitterNews(query) {
   var response = await fetch(url);
   var html = await response.text();
 
-  console.log(html);
+  // console.log(html);
   const { document } = parseHTML(html);
 
   var tweets = Array.from(document.querySelectorAll("div"));

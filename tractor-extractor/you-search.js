@@ -1,8 +1,8 @@
 const options = {method: 'GET', headers: {'X-API-Key': 'bec6be6c-87cd-45f8-b430-fc0fc3799ac4<__>1PTsFeETU8N2v5f4qmtDZVGS'}};
 
+import { sentences } from "sbd";
 import extract from "./src/url-to-content/url-to-content.js";
-
-
+import { de } from "chrono-node";
 
 
   
@@ -59,12 +59,17 @@ import extract from "./src/url-to-content/url-to-content.js";
 
 
 
-  async function process() {
-    var data = await fetchAndFilterNews('mexico flooding');
-    console.log(data);
-  
+export default async function process(searchTerms, options = {}) {
+  var { limit = 5, topSentencesOnly = true } = options;  
+
+    var data = await fetchAndFilterNews(searchTerms);
+
+
+    
     // Extract URLs from the data array of objects
-    var urls = data.map(item => item.url);
+    var urls = Array.from(data).map(item => item.url).slice(0, limit);
+
+    var allExtractions = [];
   
     for (var i in urls) {
       var url = urls[i];
@@ -72,15 +77,31 @@ import extract from "./src/url-to-content/url-to-content.js";
       var extraction = await extract(url, {
         keyphrases: true,
         formatting: true,
-        images: true,
+        images: false,
         links: true,
         absoluteURLs: true,
       }); 
-      extraction = JSON.stringify(extraction, null, 2);
+
+      if(extraction && extraction.sentences?.length && topSentencesOnly){
+
+        // console.log(extraction["sorted_sentences"]);
+      try{
+        extraction.topSentences = 
+        Array.from(extraction["sorted_sentences"])?.map(sentence=> extraction?.sentences[sentence.index])
+
+
+      }catch(e){ }
+        delete extraction.sorted_sentences;
+        delete extraction.sentences;
+        delete extraction.keyphrases;
+        
+      }
+      // extraction = JSON.stringify(extraction, null, 2);
   
-      console.log(extraction);
+      allExtractions.push(extraction);
     }
+
+    return allExtractions;
   }
 
-process()
   

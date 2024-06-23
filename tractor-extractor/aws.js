@@ -13,22 +13,25 @@ const client = new BedrockRuntimeClient({
   },
 });
 
-async function invokeModel() {
-    const messages = [
-        { role: "user", content: "Hello, world. what is amazon?" }
-    ];
+export default async function invokeModel(queryString) {
 
     // Prepare the request parameters
     const params = {
-        modelId: "anthropic.claude-3-sonnet-20240229-v1:0",
-        body: JSON.stringify({
-            prompt: messages,
-            max_gen_len: 512,
-            temperature: 0.5,
-            top_p: 0.9
-        }),
-        contentType: "application/json",
-        accept: "*/*"
+        modelId: "anthropic.claude-3-5-sonnet-20240620-v1:0",
+       
+        "max_tokens": 1024,
+        "messages": [
+            {
+                "role": "user",
+                "content": [
+                   
+                    {
+                        "type": "text",
+                        "text": queryString
+                    }
+                ]
+            }
+        ]
     };
 
 
@@ -36,10 +39,8 @@ async function invokeModel() {
 
   try {
     const data = await client.send(command);
-    console.log(data);
+    // console.log(JSON.stringify(data, null, 2));
   } catch (error) {
     console.error(error);
   }
 }
-
-invokeModel();
