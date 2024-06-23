@@ -1,6 +1,5 @@
-import { stringifyMarkdownElementTree } from "$lib/server/websearch/markdown/utils/stringify";
-import { scrapeUrl } from "$lib/server/websearch/scrape/scrape";
 import type { BackendTool } from "..";
+import extract from "../../websearch/tractor-extractor/src/url-to-content/url-to-content.js";
 
 const fetchUrl: BackendTool = {
 	name: "fetch_url",
@@ -18,10 +17,11 @@ const fetchUrl: BackendTool = {
 		const blocks = String(params.url).split("\n");
 		const url = blocks[blocks.length - 1];
 
-		const { title, markdownTree } = await scrapeUrl(url, Infinity);
+		const extraction = await extract(url, Infinity);
 
+		const { title } = extraction;
 		return {
-			outputs: [{ title, text: stringifyMarkdownElementTree(markdownTree) }],
+			outputs: [{ title, text: JSON.stringify(extraction, null, 2) }],
 			display: false,
 		};
 	},

@@ -7,7 +7,10 @@ import type { Assistant } from "$lib/types/Assistant";
 import type { MessageWebSearchUpdate } from "$lib/types/MessageUpdate";
 
 import { search } from "./search/search";
-import { scrape } from "./scrape/scrape";
+// import { scrape } from "./scrape/scrape";
+
+import extract from "./tractor-extractor/src/url-to-content/url-to-content.js";
+
 import { findContextSources } from "./embed/embed";
 import { removeParents } from "./markdown/tree";
 import {
@@ -19,8 +22,8 @@ import {
 import { mergeAsyncGenerators } from "$lib/utils/mergeAsyncGenerators";
 import { MetricsServer } from "../metrics";
 
-const MAX_N_PAGES_TO_SCRAPE = 8 as const;
-const MAX_N_PAGES_TO_EMBED = 5 as const;
+const MAX_N_PAGES_TO_SCRAPE = 3 as const;
+const MAX_N_PAGES_TO_EMBED = 2 as const;
 
 export async function* runWebSearch(
 	conv: Conversation,
@@ -48,13 +51,50 @@ export async function* runWebSearch(
 		// Scrape pages
 		yield makeGeneralUpdate({ message: "Browsing search results" });
 
-		const allScrapedPages = yield* mergeAsyncGenerators(
-			pages.slice(0, MAX_N_PAGES_TO_SCRAPE).map(scrape(embeddingModel.chunkCharLength))
-		);
-		const scrapedPages = allScrapedPages
-			.filter((p): p is WebSearchScrapedSource => Boolean(p))
-			.filter((p) => p.page.markdownTree.children.length > 0)
-			.slice(0, MAX_N_PAGES_TO_EMBED);
+
+		const urls = pages.slice(0, MAX_N_PAGES_TO_SCRAPE)
+			.map(({ link }) => link)
+
+		console.log(urls)
+
+
+		const allScrapedPages = [];
+
+		for (const i in urls) {
+			const url = urls[i];
+			if (!url || !url.length) continue;
+			const extraction = await extract(url, {
+				keyphrases: true,
+				formatting: true,
+				images: false,
+				links: true,
+				absoluteURLs: true,
+			});
+
+			if (extraction && extraction.sentences?.length) {
+
+				// console.log(extraction["sorted_sentences"]);
+				try {
+					extraction.topSentences =
+						Array.from(extraction["sorted_sentences"])?.map(
+							sentence => extraction?.sentences[sentence.index])
+
+
+				} catch (e) { }
+
+				delete extraction.sorted_sentences;
+				delete extraction.sentences;
+				delete extraction.keyphrases;
+
+			}
+			// extraction = JSON.stringify(extraction, null, 2);
+
+			allScrapedPages.push(extraction);
+		}
+
+
+		const scrapedPages = allScrapedPages.slice(0, MAX_N_PAGES_TO_EMBED);
+
 
 		if (!scrapedPages.length) {
 			throw Error(`No text found in the first ${MAX_N_PAGES_TO_SCRAPE} results`);

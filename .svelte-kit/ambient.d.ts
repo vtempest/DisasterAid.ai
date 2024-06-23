@@ -105,10 +105,8 @@ declare module '$env/static/private' {
 	export const DIRS_POSITION: string;
 	export const DriverData: string;
 	export const EDITOR: string;
-	export const EFC_19720: string;
+	export const EFC_28904: string;
 	export const FILE_PWD: string;
-	export const FPS_BROWSER_APP_PROFILE_STRING: string;
-	export const FPS_BROWSER_USER_PROFILE_STRING: string;
 	export const GIT_ASKPASS: string;
 	export const HOMEDRIVE: string;
 	export const HOMEPATH: string;
@@ -289,10 +287,8 @@ declare module '$env/dynamic/private' {
 		DIRS_POSITION: string;
 		DriverData: string;
 		EDITOR: string;
-		EFC_19720: string;
+		EFC_28904: string;
 		FILE_PWD: string;
-		FPS_BROWSER_APP_PROFILE_STRING: string;
-		FPS_BROWSER_USER_PROFILE_STRING: string;
 		GIT_ASKPASS: string;
 		HOMEDRIVE: string;
 		HOMEPATH: string;

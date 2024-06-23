@@ -5,7 +5,7 @@
 	export let name: string;
 	export let logoUrl: string | undefined;
 
-	import logo from "../../../../../static/huggingchat/logo.svg?raw";
+	// import logo from "../../../../../static/huggingchat/logo.svg?raw";
 </script>
 
 <div class=" flex h-[648px] w-full flex-col items-center bg-white">
@@ -27,14 +27,6 @@
 			on
 		{/if}
 
-		{#if isHuggingChat}
-			<div class="flex flex-row pt-3 text-5xl font-bold text-black">
-				<div class="mr-5 flex items-center justify-center" id="logo">
-					<!-- eslint-disable-next-line -->
-					{@html logo}
-				</div>
-				<span>HuggingChat</span>
-			</div>
-		{/if}
+		
 	</div>
 </div>

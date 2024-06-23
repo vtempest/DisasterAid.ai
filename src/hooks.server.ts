@@ -12,7 +12,7 @@ import { building } from "$app/environment";
 import { refreshAssistantsCounts } from "$lib/assistantStats/refresh-assistants-counts";
 import { logger } from "$lib/server/logger";
 import { AbortedGenerations } from "$lib/server/abortedGenerations";
-import { MetricsServer } from "$lib/server/metrics";
+// import { MetricsServer } from "$lib/server/metrics";
 import { ObjectId } from "mongodb";
 
 // TODO: move this code on a started server hook, instead of using a "building" flag
@@ -23,7 +23,7 @@ if (!building) {
 	}
 
 	// Init metrics server
-	MetricsServer.getInstance();
+	// MetricsServer.getInstance();
 
 	// Init AbortedGenerations refresh process
 	AbortedGenerations.getInstance();
