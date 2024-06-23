@@ -2,6 +2,8 @@ import {
   BedrockRuntimeClient,
   ConverseCommand,
 } from "@aws-sdk/client-bedrock-runtime";
+import dotenv from 'dotenv'
+dotenv.config()
 
 const client = new BedrockRuntimeClient({
   region: "us-east-1",
