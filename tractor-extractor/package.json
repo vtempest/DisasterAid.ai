@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.602.0",
     "@postlight/parser": "^2.2.3",
     "chrono-node": "^2.7.6",
     "compromise": "^14.13.0",
