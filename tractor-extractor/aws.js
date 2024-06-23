@@ -39,7 +39,7 @@ export default async function invokeModel(queryString) {
 
   try {
     const data = await client.send(command);
-    // console.log(JSON.stringify(data, null, 2));
+    return data;
   } catch (error) {
     console.error(error);
   }
