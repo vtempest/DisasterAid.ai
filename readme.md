@@ -1,7 +1,15 @@
 ### DisasterAid.AI
 
+## Berkeley AI Hackathon 2024 - AWS Climate Tech Top Prize
+
+DisasterAid.ai, a generative AI-powered platform that acts as an interactive chatbot. Inspired by the urgent need for dependable, real-time information during natural disasters, we developed a tool that enables users to ask specific questions about ongoing crises and receive timely, accurate updates. Our platform leverages the latest AI model Anthropic's Claude 3.5 Sonnet through Amazon Bedrock and employs a Retrieval-Augmented Generation (RAG) model to provide accurate and concise summaries. We also incorporate the latest real-time news about the crisis, ensuring users have access to the most current updates through You.com API, an LLM with access to real-time knowledge.
+
+DisasterAid.ai features an interactive map with real-time pin drops, utilizing Mapbox and Google Maps, to indicate the precise coordinates of events. This enhances situational awareness for families, NGOs, emergency responders, and government agencies. The platform collects and verifies data from multiple authoritative sources, such as FEMA and other official bodies, ensuring trustworthy updates.
+
+We faced challenges in data verification, real-time processing, and creating an intuitive user interface, but our team’s dedication led to a successful project that has the potential to save lives and streamline disaster response efforts.
 In critical situations, timely and accurate information can make a significant difference. Our AI-driven Customer Support Chatbot is specifically designed to provide crucial information during emergencies and to send timely alerts and safety instructions, ensuring rapid response and heightened safety for all involved.
 
+### Features
 Prompt Delivery of Critical Information During Emergencies¶
 Be Prepared, Stay Informed:
 In an emergency, every second counts. Our chatbot acts swiftly to provide essential information, helping individuals make informed decisions and stay safe.
